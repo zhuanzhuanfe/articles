@@ -251,9 +251,10 @@ methods下
 需要的格式，因此wepy的核心在于代码解析与编译。
 
 >wepy项目文件主要有两个:
-wepy-cli：用于把.wpy文件提取分析并编译成小程序所要求的wxml、wxss、js、json格式
-wepy:编译后js文件中的js框架
-wepy编译过程
+>wepy-cli：用于把.wpy文件提取分析并编译成小程序所要求的wxml、wxss、js、json格式
+>wepy:编译后js文件中的js框架
+
+###wepy编译过程
 
 ![编译过程](https://cloud.githubusercontent.com/assets/2182004/22774706/422375b0-eee3-11e6-9046-04d9cd3aa429.png)
 
