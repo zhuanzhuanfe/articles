@@ -224,6 +224,7 @@ http://blog.csdn.net/kongls08/article/details/6996528，
 哦对了，最后还需要解释一下最开始我们埋下的坑， 为什么jsonp中的async没有生效，现在解释起来真的是相当轻松，即document.appendChild的动作是交由dom渲染线程完成的，所谓的async阻塞的是dom的解析，而非js引擎的阻塞。实际上，在async获取资源后，与js引擎的交互依旧是push taskQueue的动作，也就是我们所说的async call
 
 > 推荐阅读： 关于dom解析请大家参考webkit技术内幕第九章资源加载部分  
+
 ## 峰回路转  
 
 相信很多新潮的同学已经开始运用切了async/await语法，在下面的语法中，getAjax1和console之间的具有同步的特性
