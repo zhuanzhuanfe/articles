@@ -75,7 +75,7 @@ export const loadJsonpSync = (url) => {
 
 明确了这一点，我们可以借助甘特图来表示同步和异步
 
-![image](images/gantt.png)
+![image](images/gantt.png)  
 其中t1和t2是同步的，t1和t3是异步的。
 答案就在操作系统原理的大学教材上，我们有自旋锁，信号量来解决问题，伪代码如下
 ```
@@ -214,7 +214,7 @@ http://blog.csdn.net/kongls08/article/details/6996528，
 
 可是，如果把代码最后的foo() 变成 foo() && console.log('wait5sdo'),
 我们的代码依然没有成功，why
-![image](images/p.png)
+![image](images/p.png)  
 注意看我们标红的地方，如果你完成了小测验1，就会得到和这张图一致的顺序  
 
 ==同步执行的代码片段必然在异步之前。==  
