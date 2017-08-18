@@ -75,16 +75,7 @@ export const loadJsonpSync = (url) => {
 
 明确了这一点，我们可以借助甘特图来表示同步和异步
 
-```
-gantt
-dateFormat YYYY-MM-DD
-section S1
-T1: 2014-01-01, 9d
-section S2
-T2: 2014-01-11, 9d
-section S3
-T3: 2014-01-02, 9d
-```
+![image](images/gantt.png)
 其中t1和t2是同步的，t1和t3是异步的。
 答案就在操作系统原理的大学教材上，我们有自旋锁，信号量来解决问题，伪代码如下
 ```
@@ -223,7 +214,7 @@ http://blog.csdn.net/kongls08/article/details/6996528，
 
 可是，如果把代码最后的foo() 变成 foo() && console.log('wait5sdo'),
 我们的代码依然没有成功，why
-![image](http://note.youdao.com/yws/api/personal/file/WEBfe9f234f9e67b32dea8dbe80687c18ba?method=download&shareKey=e8f02f4554c09062c2da0111e3d834e9)
+![image](images/p.png)
 注意看我们标红的地方，如果你完成了小测验1，就会得到和这张图一致的顺序  
 
 ==同步执行的代码片段必然在异步之前。==  
