@@ -1,4 +1,4 @@
-#像VUE一样写微信小程序-深入研究wepy框架
+# 像VUE一样写微信小程序-深入研究wepy框架
 ==============
 
 >微信小程序自发布到如今已经有半年多的时间了,凭借微信平台的强大影响力，越来越多企业加入小程序开发。
@@ -8,7 +8,7 @@
 3.在过度竞争的互联网行业中，获取一个有效APP用户的成本已经非常高了，小程序相比APP更加轻量、即用即走，
 更容易获取用户
 
-##开发对比
+## 开发对比
 
 >从开发角度来讲，小程序官方封装了很多常用组件给开发带来很多便利性，但同时也带来很多不便：
 1、小程序重新定义了DOM结构，没有window、document、div、span等，小程序只有view、text、image等
@@ -17,14 +17,14 @@
 需要很高的学习成本
 3、小程序没有cookie，只能通过storage来模拟各项cookie操作（包括http中的setCookie也需要自行处理）
 
-##wepy
+## wepy
 
 
 笔者团队最近开发了多个微信小程序，为了弥补小程序各项不足和延续开发者VUE的开发习惯，团队在开发初期
 就选用了wepy框架，该框架是腾讯内部基于小程序的开发框架，设计思路基本参考VUE，开发模式和编码风
 格上80%以上接近VUE，开发者可以以很小的成本从VUE开发切换成小程序开发，相比于小程序，主要优点如下：
 
-1、开发模式容易转换
+1.开发模式容易转换
 wepy在原有的小程序的开发模式下进行再次封装，更贴近于现有MVVM框架开发模式。框架在开发过程中参考了
 一些现在框架的一些特性，并且融入其中，以下是使用wepy前后的代码对比图。
 
@@ -163,9 +163,9 @@ project
 
 默认开启使用了一些新的特性如promise，async/await等等
 
-##如何开发
+## 如何开发
 
-###快速起步
+### 快速起步
 
 安装
 ``` bash
@@ -187,7 +187,7 @@ cd myproject
 wepy build --watch
 ```
 
-###目录结构
+### 目录结构
 ``` bash
 ├── dist                   微信开发者工具指定的目录
 ├── node_modules
@@ -202,31 +202,28 @@ wepy build --watch
 └── package.json           package 配置
 ```
 
-###wepy和VUE在编码风格上面非常相似，VUE开发者基本可以无缝切换，因此这里仅介绍两者的主要区别：
+### wepy和VUE在编码风格上面非常相似，VUE开发者基本可以无缝切换，因此这里仅介绍两者的主要区别：
 
-1. 二者均支持props、data、computed、components、methods、watch（wepy中是watcher），
+1.二者均支持props、data、computed、components、methods、watch（wepy中是watcher），
 但wepy中的methods仅可用于页面事件绑定，其他自定义方法都要放在外层，而VUE中所有方法均放在
 methods下
 
-2. wepy中props传递需要加上.sync修饰符（类似VUE1.x）才能实现props动态更新，并且父组件再
+2.wepy中props传递需要加上.sync修饰符（类似VUE1.x）才能实现props动态更新，并且父组件再
 变更传递给子组件props后要执行this.$apply()方法才能更新
 
-3. wepy支持数据双向绑定，子组件在定义props时加上twoway:true属性值即可实现子组件修改父组
+3.wepy支持数据双向绑定，子组件在定义props时加上twoway:true属性值即可实现子组件修改父组
 件数据
 
-4. VUE2.x推荐使用eventBus方式进行组件通信，而在wepy中是通过$broadcast，$emit，$invoke
+4.VUE2.x推荐使用eventBus方式进行组件通信，而在wepy中是通过$broadcast，$emit，$invoke
 三种方法实现通信
 
     · 首先事件监听需要写在events属性下：
     ``` bash
     import wepy from 'wepy';
     export default class Com extends wepy.component {
-
         components = {};
-
         data = {};
         methods = {};
-
         events = {
             'some-event': (p1, p2, p3, $event) => {
                    console.log(`${this.name} receive ${$event.name} from ${$event.source.name}`);
@@ -241,11 +238,11 @@ methods下
 
     · $invoke：子组件触发子组件事件
 
-5. VUE的生命周期包括created、mounted等，wepy仅支持小程序的生命周期：onLoad、onReady等
+5.VUE的生命周期包括created、mounted等，wepy仅支持小程序的生命周期：onLoad、onReady等
 
-6. wepy不支持过滤器、keep-alive、ref、transition、全局插件、路由管理、服务端渲染等VUE特性技术
+6.wepy不支持过滤器、keep-alive、ref、transition、全局插件、路由管理、服务端渲染等VUE特性技术
 
-##wepy原理研究
+## wepy原理研究
 
 >虽然wepy提升了小程序开发体验，但毕竟最终要运行在小程序环境中，归根结底wepy还是需要编译成小程序
 需要的格式，因此wepy的核心在于代码解析与编译。
@@ -254,11 +251,11 @@ methods下
 >wepy-cli：用于把.wpy文件提取分析并编译成小程序所要求的wxml、wxss、js、json格式
 >wepy:编译后js文件中的js框架
 
-###wepy编译过程
+### wepy编译过程
 
 ![编译过程](https://cloud.githubusercontent.com/assets/2182004/22774706/422375b0-eee3-11e6-9046-04d9cd3aa429.png)
 
-###拆解过程核心代码
+### 拆解过程核心代码
 ``` bash
 //wepy自定义属性替换成小程序标准属性过程
 return content.replace(/<([\w-]+)\s*[\s\S]*?(\/|<\/[\w-]+)>/ig, (tag, tagName) => {
