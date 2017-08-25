@@ -1,33 +1,33 @@
-***“唠嗑之前，一些客套话”***
+**“唠嗑之前，一些客套话”**
 
 CORS跨域资源共享，这个话题大家一定不陌生了，吃久了大转转公众号的深度技术好文，也该吃点儿小米粥溜溜胃里的缝儿了，今天咱们就再好好屡屡CORS跨域资源共享这个话题，大牛怡情小牛巩固，把这碗前端经久不凉的大碗茶，再细细的品一品。
 
 --------
 
-***“JSONP直接了当很豪爽，CORS细吮慢品大补汤”***
+**“JSONP直接了当很豪爽，CORS细吮慢品大补汤”**
 
 在咱们前端的日常工作中，跨域比较常用的方式就是JSONP，JSONP呢就是通过script标签无同源限制的特点，在获取到需要的资源后自动执行回调方法的方式，而我们浏览器原生的CORS跨域，是通过“正当手段”得到服务器小姐姐首肯，大摇大摆获取跨域资源的方式，相比JSONP只能实现GET请求，CORS大法支持所有的请求类型，同时CORS是通过普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理，接下来我们就来说下这个CORS大法。
 
 -----------
 
-***“整体概述，先摆个谱”***
+**“整体概述，先摆个谱”**
 
-**官方简略的：**
+***官方简略的：***
 CORS（Cross-Origin Resource Sharing）跨域资源共享，主要思想就是使用自定义的HTTP头部让浏览器与服务器进行沟通，从而决定响应是成功还是失败，它允许了浏览器向跨源服务器发送请求，从而克服了同源的限制。
 
-**私下露骨的：**
+***私下露骨的：***
  其实就是向服务器发送跨域请求时，浏览器自动针对普通请求和非普通请求进行区别对待，在请求头中加个Origin字段告诉服务器这个请求的源，通过服务器返回的响应头中Access-Control-Allow-Origin字段的值是不是请求中的Origin，来看服务器让不让咱请求到这资源。
 
 
 ------------
 
-***“我是一些工作中不怎么用得到的基本知识，可我也是一条小生命啊”***
+**“我是一些工作中不怎么用得到的基本知识，可我也是一条小生命啊”**
 
-**CORS 浏览器的支持情况 ：**
+***CORS 浏览器的支持情况 ：***
 ![这里写图片描述](http://img.blog.csdn.net/20170728140200871?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTY3NTAzNw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 浏览器端已经获得了良好的支持，所以实现CORS的关键就是服务器，只要实现了CORS的接口，就可以实现跨域通信。
 
-**IE对CORS的实现** ：
+***IE对CORS的实现：***
 
 IE8中引入了XDR（XDomainRequest），注意：
 
@@ -50,7 +50,7 @@ xdr.open("get", "http://www.xxx.com/yyy/");
 xdr.send(null);
 ```
 
-**其他浏览器对CORS的实现** 
+***其他浏览器对CORS的实现***
 
 Firefox3.5+，Safari4+，Chorme，IOS版的Safari和Android平台下的WebKit都通过XmlHttpRequest实现了对CORS的支持。
 
@@ -78,11 +78,11 @@ xhr.send(null);
 
 ---------
 
-***“请求没有那么简单，每种都有她的习惯”***
+**“请求没有那么简单，每种都有她的习惯”**
 
 浏览器将CORS请求分成两类。
 
-**1.简单请求：**
+***1.简单请求：***
 
 高大上版定义：
 > Simple requests  
@@ -106,7 +106,7 @@ xhr.send(null);
  2. HTTP的头信息不超出以下几种字段：Accept，Accept-Language，Content-Language，Last-Event-ID
  3. Content-Type只限于三个值：application/x-www-form-urlencoded、multipart/form-data、text/plain
 
-**2.非简单请求：**
+***2.非简单请求：***
 
 非简单请求是那种对服务器有特殊要求的请求，除以上条件之外的都是非简单请求，条件如下：
 
@@ -118,7 +118,7 @@ xhr.send(null);
 
 -------
 
-***“跨域请求分两队，差别对待也是醉”***
+**“跨域请求分两队，差别对待也是醉”**
 
 
 在讨论"CORS对不同请求的处理"这部分内容时，我们同步跑起来一个nodejs的项目对照着理解，纸上谈兵终觉浅，要干大事还得码啊！
@@ -194,7 +194,7 @@ var server = app.listen(8081, function () {
 console.log('Server running at http://m.zhuanzhuan.com/');
 ```
 
-**创建一个index.html**
+***创建一个index.html***
 
 ```
 <!DOCTYPE html>
@@ -240,7 +240,7 @@ console.log('Server running at http://m.zhuanzhuan.com/');
 
 有了代码心里就有底了，接下来我们来看下简单和非简单请求，CORS到底do了what!
 
-**1.简单请求：**
+***1.简单请求：***
 
 按照上面的getData方法的配置：
 
@@ -334,7 +334,7 @@ router.all('/getData', function(req, res, next) {
 -------------------------------------
 
 
-***“凭证不是你想带，想带就能带”***    
+**“凭证不是你想带，想带就能带”**  
   
 
 默认情况下跨域请求不提供凭据（Cookie,HTTP认证以及SSL证明等），但是通过将xhr的withCredentials属性设置为true，就可以指定某个请求发送凭据。如果服务器接受带凭据的请求，会在响应头中用Access-Control-Allow-Credentials：true来响应。
@@ -387,12 +387,12 @@ res.header("Access-Control-Allow-Origin", "*");
 
 
 ---------------
-***“...我编不出来了...反正就是介绍下双方出场队员= =”***
+**“...我编不出来了...反正就是介绍下双方出场队员= =”**
 
   
 最后我们将跨域涉及到的一些响应头中Access-Control-Allow家族常见的字段罗列下，给我们的知识系统来几下80块的扎实大锤：
 
-**HTTP 响应首部字段**
+***HTTP 响应首部字段***
 
  1. **Access-Control-Allow-Origin: <origin> |***： 表示可以请求数据的请求来源
  2. **Access-Control-Expose-Headers：zhuanzhuanFe**： 在跨域访问时，XMLHttpRequest对象的getResponseHeader()方法只能拿到一些最基本的响应头，Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma，如果要访问其他头，则需要服务器设置本响应头,如上这样浏览器就能够通过getResponseHeader访问zhuanzhuanFe响应头了。
@@ -401,7 +401,7 @@ res.header("Access-Control-Allow-Origin", "*");
  5. **Access-Control-Allow-Methods:  < method >[, < method >]**：首部字段用于预检请求的响应。其指明了实际请求所允许使用的 HTTP 方法。
  6. **Access-Control-Allow-Headers:  < field-name >[, < field-name >]***：如果浏览器请求包括Access-Control-Request-Headers字段，则Access-Control-Allow-Headers字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段，不限于浏览器在"预检"中请求的字段。
  
-**HTTP 请求首部字段**
+***HTTP 请求首部字段***
 
  1. **Origin: < origin >**：表明预检请求或实际请求的源
  2. **Access-Control-Request-Method: < method >**： 将实际请求所使用的 HTTP 方法告诉服务器。
