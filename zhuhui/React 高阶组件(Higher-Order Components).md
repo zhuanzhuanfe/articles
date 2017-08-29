@@ -307,14 +307,19 @@ class Inheritance extends WrapperComponent {
 }
 ```
 
-上述代码中，让 `Inheritance` 继承 `WrapperComponent` (1)，
-并且覆写了` WrapperComponent` 中的 `componentWillMount`函数(2)，
-在这个方法中对 `WrapperComponent` 的 `state`进行操作(3)，
-在 `render`方法中，为了防止破坏` WrapperComponent `原有的 `render()`方法，使用 `super`将 `WrapperComponent` 中原有的 `render `方法实现了一次(4)，
- 在 `componentDidMount`同样是先将 ` WrapperComponent` 中的 `componentDidMount`方法实现了一次(5)，
- 并且在原有的基础上，又进行了一些操作(6)
+上述代码中，让 `Inheritance` 继承 `WrapperComponent` (1)
 
->需要注意的是，`super`并不是必须使用，这取决于你是否需要实现普通组件中原有的对应函数，一般来说都是需要的，类似于 `mixin`，至于到底是原有钩子函数中的代码先执行，还是 `HOC`中另加的代码先执行，则取决于 `super`的位置，如果`super`在新增代码之上，则原有代码先执行，反之亦然。
+并且覆写了` WrapperComponent` 中的 `componentWillMount`函数(2)
+
+在这个方法中对 `WrapperComponent` 的 `state`进行操作(3)
+
+在 `render`方法中，为了防止破坏` WrapperComponent `原有的 `render()`方法，使用 `super`将 `WrapperComponent` 中原有的 `render `方法实现了一次(4)
+
+ 在 `componentDidMount`同样是先将 ` WrapperComponent` 中的 `componentDidMount`方法实现了一次(5)
+
+ 并且在原有的基础上，又进行了一些额外的操作(6)
+
+>`super`并不是必须使用，这取决于你是否需要实现普通组件中原有的对应函数，一般来说都是需要的，类似于 `mixin`，至于到底是原有钩子函数中的代码先执行，还是 `HOC`中另加的代码先执行，则取决于 `super`的位置，如果`super`在新增代码之上，则原有代码先执行，反之亦然。
 >
 另外，如果普通组件并没有显性实现某个钩子函数，然后在`HOC`中又添加了这个钩子函数，则 `super`不可用，因为并没有什么可以 `super`的，否则将报错。
 
@@ -425,7 +430,7 @@ export default connect(
 >
 >相比于使用 `redux`一个个地初始化所有需要使用到全局属性的组件，使用高阶组件作为载体，虽然结构上多了一层，但是操作上明显方便简化了许多。
 
-虽然理论上可行，但无图无代码，嘴上说说可没用，我特地实验了一番，已用实践证实了其可行性。
+理论上可行，但无图无代码，嘴上说说可没用，我特地实验了一番，已用实践证实了其可行性。
 
 一种封装 `HOC`，让其承载 `redux` 的示例代码如下：
 
@@ -460,7 +465,7 @@ connect(
 })
 ```
 
-然后，普通组件被此`HOC`处理后，就可以轻松获取 `redux`中的数据了，使用方法和上面一样：
+然后，普通组件被此`HOC`处理后，就可以轻松获取 `redux`中的数据了，想让哪个组件获取 `redux`，哪个组件就能获取到，不想获取的就获取不到，简单明了，使用方法和上面一样：
 
 ```
 import HocRedux from 'HocRedux'

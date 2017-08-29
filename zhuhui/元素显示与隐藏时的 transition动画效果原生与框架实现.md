@@ -13,7 +13,7 @@
 
 ## 框架实现
 
-- 基于`vue`的动画渐隐实现
+### 基于`vue`的动画渐隐实现
 
 利用框架实现这种效果真的是 `so easy`，不逼逼上代码。
 
@@ -61,7 +61,7 @@
 
 简直不能更简单
 
-- 基于`react`的动画渐隐实现
+### 基于`react`的动画渐隐实现
 
 `react`本身的单独库没有自带过渡动画，不过有个 [Animation Add-Ons: react-addons-css-transition-group](https://facebook.github.io/react/docs/animation.html)
 
@@ -154,7 +154,13 @@ class TodoList extends React.Component {
 
 上图似乎有个问题，从显示到隐藏确实是等待了 `3s`，但从隐藏到显示，好像还是瞬间完成的，并没有等待 `3s`的说法。
 
-视觉上确实是这样，不过这也只是视觉上的感觉而已，实际上这个等待时间真实存在的，只是看不到而已。
+视觉上确实是这样，不过这也只是视觉上的感觉而已，实际上这个等待时间真实存在的，只是看不到而已，另外，这里的 `等待`也不是真的什么都没做纯粹的 `等待`。
+
+之所以 `display`会破坏 `transition`动画，有个说法是，因为 `transition`对元素在整个过渡过程中的状态控制，是根据元素过渡前后起始的状态来计算得出的，例如从 `opacity:0` 到 `opacity:1`的变化，用时 `3s`，那么 `transition`会计算在这 `3s`内的每一帧画面中元素该有的 `opacity`值，从而完成过渡效果，其他的一些属性，例如 `width`、`scale`、`color`等都可以转化为数字进行计算 ([说明文档参见](https://www.w3.org/TR/css3-transitions/#animation-of-property-types-))， 但 `display`是个尴尬的属性，从 `display: none`到 `display:block` 该怎么计算值呢？
+
+计算不了，所以就只能 `破坏了`，`visibility`同样如此，只不过 `visibility`比 `display`稍好一点，因为最起码 `visibility`不会破罐子破摔，不会搞破坏。
+
+从 `visibility: hidden`到 `visibility:visible`的过程中。因为没办法计算过渡阶段没帧的值，所以元素就直接显示出来了，但内在的过渡操作依旧在元素显示出来后显示了 `3s`，而从 `visibility:visible` 到 `visibility: hidden`，元素在视觉上看起来等待的 `3s`内，实际在内部已经在进行 `transition`过渡操作，只不过还是因为没办法计算值，所以到了过渡阶段的最后一刻时，就直接将元素设置为结束状态，也就是隐藏了。
 
  想要验证这种说法，还需要配合另外一个属性：`opacity`，此属性也是配合 `visibility`完成过渡效果的搭配属性。
 
@@ -200,15 +206,15 @@ btn.addEventListener('click', ()=>{
 
 ![image](images/170828-A-2.gif)
 
- 其实 `opacity`本身就能控制元素的显隐，把上面代码中的所有 `visibility`全部删除，效果依旧不变。
+因为虽然 `visibility`没办法计算值，但 `opacity`可以，过渡的效果实际上是 `opacity`在起作用。
 
-`opacity`确实能够让元素在视觉上显示和隐藏，并且和 `visibility` 一样，设置了 `opacity:0;`的元素依旧存在于文档流中，`but`，相比于 `visibility: hidden`， `opacity: 0`的元素并不会出现点透。
+ 其实 `opacity`本身就能控制元素的显隐，把上面代码中的所有 `visibility` 全部删除，效果依旧不变，并且和 `visibility` 一样，设置了 `opacity:0;` 的元素依旧存在于文档流中，`but`，相比于 `visibility: hidden`， `opacity: 0` 的元素并不会出现点透。
 
 而 `visibility: hidden`的元素就会出现点透，点击事件会穿透 `visibility: hidden`的元素，被下面的元素接收到，元素在隐藏的时候，就不会干扰到其他元素的点击事件。
 
 关于这个说法，似乎网上有些争论，但是我用迄今最新版的 `Chrome` `Firefox` 以及 `360浏览器` 进行测试， 都是上面的结果。
 
-如果你只是想让元素简单的渐进显隐，不用管显隐元素会不会遮挡什么点击事件之类的，那么完全可以不用加 `visibility`属性，加了反而是自找麻烦，但是如果需要考虑到这一点，那么最好加上。
+如果你只是想让元素简单的渐进显隐，不用管显隐元素会不会遮挡什么点击事件之类的，那么完全可以不用加 `visibility` 属性，加了反而是自找麻烦，但是如果需要考虑到这一点，那么最好加上。
 
 ---
 
@@ -222,11 +228,7 @@ btn.addEventListener('click', ()=>{
 
 怎么办？再回到 `display` 这个属性上。
 
-为什么 `display` 这个属性会影响到 `transition` 动画呢？
-
-网上有的说法是 因为缓动是基于数值和时间的计算(长度，百分比，角度，颜色也能转换为数值)([w3.org](https://www.w3.org/TR/css3-transitions/#animatable-properties-) )，而`display`是一个尴尬的属性，没办法转换。
-
-既然问题是出在了 `display` 上，那么我就不用 `display`作为过渡的属性，换成 `opocity`，并且让`opocity` 与 `display` 分开执行不就行了吗？
+为什么 `display` 这个属性会影响到 `transition` 动画的原因上面已经大致说了下，既然问题是出在了 `display` 上，那么我可以同样参考上面 `visibility`的做法，加个 `opocity`属性进行辅助，又因为考虑到 `display` 比起 `visibility` 来说破坏性较大，所以再让`opocity` 与 `display` 分开执行不就行了吗？
 
 你如果写成这种形式：
 
@@ -237,9 +239,9 @@ box1.style.opacity=1
 
 其实还是没用的，尽管  `display`值的设定在代码上看起来好像是在 `opacity`前面，但是执行的时候却是几乎同时发生的。
 
-我的理解是应该是浏览器对代码进行了优化，浏览器看到你分两步为同一个元素设置 `CSS`属性，感觉有点浪费，为了更快地完成这两步，它帮你合并了一下，放在一帧内执行，变成一步到位了，也就是同步执行了这两句代码。
+我的理解是应该是浏览器对代码进行了优化，浏览器看到你分两步为同一个元素设置 `CSS`属性，感觉有点浪费，为了更快地完成这两步，它帮你合并了一下，放在一个 `tick`（[参见]((http://www.infoq.com/cn/articles/javascript-high-performance-animation-and-page-rendering) )）内执行，变成一步到位了，也就是同步执行了这两句代码。
 
-那么如何明确地让浏览器不要合并执行呢？`setTimeOut`就派上了用场。
+那么如何明确地让浏览器不要合并到一个 `tick`内执行呢？`setTimeOut`就派上了用场。
 
 `setTimeOut` 一个重要功能就是延迟执行，只要将 `opacity`属性的设置延迟到 `display`后面执行就行了。
 
@@ -274,7 +276,7 @@ btn.addEventListener('click', ()=>{
 
 上述代码中，最关键的就是 `setTimeOut` 这一句，延迟元素 `opacity`属性的设定。
 
-`setTiomeOut`的第二个可选的时间 `delay`参数，我在最新版的 `Chrome`和 `360` 浏览器上测试，此参数可以不写，也可以写成 `0`或者其他数值，但是在 `firefox`上，此参数必须写，不然渐进效果时灵时不灵，而且不能为 `0`，也不能太小，我测出来的最小数值是 `14`，这样才能保证渐进效果。
+`setTiomeOut`的第二个可选的时间 `delay`参数，我在最新版的 `Chrome`和 `360` 浏览器上测试，此参数可以不写，也可以写成 `0`或者其他数值，但是在 `firefox`上，此参数必须写，不然渐进效果时灵时不灵，而且不能为 `0`，也不能太小，我测出来的最小数值是 `14`，这样才能保证渐进效果，所以为了兼容考虑，最好还是都统一加上时间。
 
 至于为什么是 `14`，我就不清楚了，不过记得以前看过一篇文章，其中说 `CPU`能够反应过来的最低时间就是 `14ms`，我猜可能与这个有关吧。
 
@@ -306,7 +308,7 @@ else {
 `transition` 动画结束的时候，对应着一个事件：`transitionend`，[MDN](https://developer.mozilla.org/en-US/docs/Web/Events/transitionend)上关于此事件的详细如下：
 >`transitionend` 事件会在 `CSS transition` 结束后触发. 当 `transition`完成前移除 `transition`时，比如移除 `css`的 `transition-property` 属性，事件将不会被触发，如在 `transition`完成前设置 `display: none`，事件同样不会被触发。
 
-如果你能够使用 `transition`，那么基本上也就能够使用这个事件了，只不过此事件需要加前缀的浏览器比较多（现在最新版的所有主流浏览器，都已经不用写前缀了），大致有如下写法：
+如果你能够使用 `transition`，那么基本上也就能够使用这个事件了，只不过此事件需要加前缀的浏览器比较多（现在最新版的所有 [主流浏览器](http://caniuse.com/#search=transitionend)，都已经不用写前缀了），大致有如下写法：
 ```
 transitionend
 webkitTransitionEnd
@@ -361,7 +363,7 @@ btn.addEventListener('click', ()=>{
 ![image](images/170828-A-6.png)
 
 
-另外，顺带一提的是，除了 `transitionend`事件，还有一个 [animationend](https://developer.mozilla.org/en-US/docs/Web/Events/animationend)事件，此事件是对应 `animation`动画，这里就不展开了。
+另外，顺带一提的是，除了 `transitionend` 事件，还有一个 [animationend](https://developer.mozilla.org/en-US/docs/Web/Events/animationend)事件，此事件是对应 `animation`动画，`react-addons-css-transition-group` 和 `vue`中也都对应着 `transitionend` 出现了此属性的身影，这里就不展开了。
 
 
 
