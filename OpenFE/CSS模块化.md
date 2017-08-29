@@ -1,8 +1,8 @@
 
 #### 为什么要CSS模块化？
 
-> 你是否为class命名而感到苦恼？ 
-你是否有怕跟别人使用同样class名而感到担忧？ 
+> 你是否为class命名而感到苦恼？
+你是否有怕跟别人使用同样class名而感到担忧？
 你是否因层级结构不清晰而感到烦躁？
 你是否因代码难以复用而感到不爽？
 你是否因为common.css的庞大而感到恐惧？
@@ -20,9 +20,9 @@
 
 大家都说CSS学和写都简单，那么写了多年CSS的同学是否有静下来思考过，自己写CSS是有较为系统的和具有一定规范的，而不是草率的写CSS。另外就是自己写的CSS在团队中，别的同学是否能看到代码就知道您写的是什么？如果没有，那不仿看看这里提到的一些概念与思想，比如：Sass 、SCSS、LESS、BEM、OOCSS、AMCSS等。让我们一起来深入了解css吧?
 
-* ###### 首先了解一下BEM（我个人比较喜欢的）
+* 首先了解一下BEM（我个人比较喜欢的）
 
-> BEM的意思就是块（block）、元素（element）、修饰符（modifier）,是由Yandex团队提出的一种前端命名方法论。这种巧妙的命名方法让你的CSS类对其他开发者来说更加透明而且更有意义。BEM命名约定更加严格，而且包含更多的信息，它们用于一个团队开发一个耗时的大项目。 
+> BEM的意思就是块（block）、元素（element）、修饰符（modifier）,是由Yandex团队提出的一种前端命名方法论。这种巧妙的命名方法让你的CSS类对其他开发者来说更加透明而且更有意义。BEM命名约定更加严格，而且包含更多的信息，它们用于一个团队开发一个耗时的大项目。
 
 命名约定的模式如下：
 
@@ -37,7 +37,7 @@
 > 优点：BEM 的优点在于所产生的 CSS 类名都只使用一个类别选择器，可以避免传统做法中由于多个类别选择器嵌套带来的复杂的属性级联问题。在 BEM 命名规则中，所有的 CSS 样式规则都只用一个类别选择器。因此所有样式规则的特异性（specificity）都是相同的，也就不存在复杂的优先级问题。这可以简化属性值的层叠规则。代码清单中的命名规则的好处在于每个 CSS 类名都很简单明了，而且类名的层次关系可以与 DOM 节点的树型结构相对应。
 缺点： CSS 类名会比较长而且复杂。乍看之下，根据 BEM 命名规则产生的 CSS 类名都会很复杂，但实际上在熟悉了命名规则之后，可以很容易理解其含义。
 
-*  ###### 我们再看一下OOCSS（面向对象CSS）
+* 我们再看一下OOCSS（面向对象CSS）
 
 >OOCSS 表示的是面向对象 CSS（Object Oriented CSS），是一种把面向对象方法学应用到 CSS 代码组织和管理中的实践。 OOCSS最关键的一点就是：提高他的灵活性和可重用性。这个也是OOCSS最重要的一点。OOCSS主张是通过在基础组件中添加更多的类，从而扩展基础组件的CSS规则，从而使CSS有更好的扩展性。
 
@@ -80,24 +80,22 @@ OOCSS的缺点
 * OOCSS适合真正的大型网站开发，因为大型网站用到的可重用性组件特别的多，如果运用在小型项目中可能见不到什么成效。所以用不用OOCSS应该根据你的项目来决定。
 * 如果没用巧妙的使用，创建组件可能对于你来说是一堆没用的东西，成为一烂摊子，给你的维护带来意想不到的杯具，说不定还是个维护的噩梦。
 * 最好给每一个组件备写一份说明文档，有助于调用与维护
-
-* ##### AMCSS（属性模块）
-
+* AMCSS（属性模块）
 > 属性模块或者说AM，其核心就是关于定义命名空间用来写样式。通俗的讲就是，给一个元素加上属性，再通过属性选择器定位到这个元素。达到避免过多的使用class。
 
     // template
     <div am- Row ></div>
-    <div am- Column = "12"> Full < /div> 
-    </ div> <div am- Row > <div am- Column = "4"> Thirds </div> 
-    <div am- Column = "4"> Thirds </div> 
-    <div am- Column = "4"> Thirds < /div> </ div> 
-    // style 
-    [am- Row ] { /* max-width, clearfixes */ } 
-    [am- Column ~= "1" ] { /* 1/12th width, floated */ } 
-    [am- Column ~= "2" ] { /* 1/6th width, floated */ } 
-    [am- Column ~= "3" ] { /* 1/4th width, floated */ } 
-    [am- Column ~= "4" ] { /* 1/3rd width, floated */ } 
-    [am- Column ~= "5" ] { /* 5/12th width, floated */ } /* etc */ 
+    <div am- Column = "12"> Full < /div>
+    </ div> <div am- Row > <div am- Column = "4"> Thirds </div>
+    <div am- Column = "4"> Thirds </div>
+    <div am- Column = "4"> Thirds < /div> </ div>
+    // style
+    [am- Row ] { /* max-width, clearfixes */ }
+    [am- Column ~= "1" ] { /* 1/12th width, floated */ }
+    [am- Column ~= "2" ] { /* 1/6th width, floated */ }
+    [am- Column ~= "3" ] { /* 1/4th width, floated */ }
+    [am- Column ~= "4" ] { /* 1/3rd width, floated */ }
+    [am- Column ~= "5" ] { /* 5/12th width, floated */ } /* etc */
     [am- Column ~= "12" ] { /* 100% width, floated */ }
 
 你会注意到第一件事情就是有am-前缀。这也是AM核心部分，确保属性模块不会与现有属性冲突。你可以使用你自己喜欢的任何前缀名，我常使用的是ui-、css-或者其他前缀，但这些示例中使用的是am-前缀。HTML的有效性对你或你的项目来说是非常重要，就类似于使用data-前缀开头定义的属性类似。
@@ -112,13 +110,13 @@ OOCSS的缺点
 
     // 输入
     : local (.className) { background: red; }
-    : local .className { color: green; } 
-    : local (.className .subClass) { color: green; } 
-    : local .className .subClass : global (. global - class -name) { color: blue; } 
-    // 导出 
-    ._23_aKvs-b8bW2Vg3fwHozO { background: red; } 
-    ._23_aKvs-b8bW2Vg3fwHozO { color: green; } 
-    ._23_aKvs-b8bW2Vg3fwHozO ._13LGdX8RMStbBE9w-t0gZ1 { color: green; } 
+    : local .className { color: green; }
+    : local (.className .subClass) { color: green; }
+    : local .className .subClass : global (. global - class -name) { color: blue; }
+    // 导出
+    ._23_aKvs-b8bW2Vg3fwHozO { background: red; }
+    ._23_aKvs-b8bW2Vg3fwHozO { color: green; }
+    ._23_aKvs-b8bW2Vg3fwHozO ._13LGdX8RMStbBE9w-t0gZ1 { color: green; }
     ._23_aKvs-b8bW2Vg3fwHozO ._13LGdX8RMStbBE9w-t0gZ1 . global - class -name { color: blue; }
 
 >：local（className）被编译为唯一可识别的标示，：global（className）原样输出，当然我们也可以控制导出的格式。配置如下：
@@ -147,17 +145,17 @@ OOCSS的缺点
     <div>
       <style scoped >
         span {color:red;}
-      </style> 
+      </style>
       <span> 我是第1个DIV内的SPAN </span>
-    </div> 
-    <div> 
-      <style scoped > 
-        span {color:green;}
-      </style> 
-      <span> 我是第2个DIV内的SPAN </span> 
     </div>
-    <div> 
-      <span> 我是第3个DIV内的SPAN </span> 
+    <div>
+      <style scoped >
+        span {color:green;}
+      </style>
+      <span> 我是第2个DIV内的SPAN </span>
+    </div>
+    <div>
+      <span> 我是第3个DIV内的SPAN </span>
     </div>
 
 结果：
@@ -170,7 +168,7 @@ OOCSS的缺点
 
 ![微信图片_20170816201320.png](http://upload-images.jianshu.io/upload_images/3357019-ca9221a7cf1730b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-咦，这不就是我们刚刚讲过的AMCSS（属性模块）的应用吗？也就是说vue在编译的时候，把带有scoped属性的的模块，加上了一个唯一的属性，然后通过类名+属性选择器的方法来实现模块化！ 
+咦，这不就是我们刚刚讲过的AMCSS（属性模块）的应用吗？也就是说vue在编译的时候，把带有scoped属性的的模块，加上了一个唯一的属性，然后通过类名+属性选择器的方法来实现模块化！
 
 其实其他框架也是用的类似的方法，我们再看一下，小程序wepy框架的实现吧？
 
@@ -241,7 +239,7 @@ OOCSS的缺点
       .my-mixin;
       .my-other-mixin;
     }
-   
+
 输出：
 
     .my-mixin {
