@@ -64,7 +64,7 @@ new webpack.optimize.ModuleConcatenationPlugin()
 ````
 
 * npm run dev & npm run build 缺什么包就装什么包，如图
-![](https://img.58cdn.com.cn/zhuanzhuan/performance/notnpm.png)
+![](images/notnpm.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后，就是辣么简单，ok了
 
@@ -97,7 +97,7 @@ new webpack.optimize.ModuleConcatenationPlugin()
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;常见错误也就是`npm`包版本不匹配，升级最新的包就行，推荐工具 [npm-check](https://www.npmjs.com/package/npm-check)，批量检查更新，简直不要太好用
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不过凡事都有例外，错误也一样，升级过程中遇到了如下错误：
-![](https://img.58cdn.com.cn/zhuanzhuan/performance/template.png)
+![](images/template.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;翻墙搜了半天，发现是 `"vue": "^2.3.4"` 版本对应的`vue-loader`版本不对，最好是 `> vue-loader@^7.0.0 &&  < vue-loader@^12.0.0`。
 
