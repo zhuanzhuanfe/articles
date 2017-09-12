@@ -1,6 +1,7 @@
 ## (webpack系列一)如何快速把 vue 项目升级到 webpack3
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于`webpack3`升级后，新增了 **Scope Hositing（作用域提升）** 功能，据说是对`js`的性能提升很大。因此，我们做了一个测试对比，就是`webpack3`和`webpack1/2` 的性能对比，我们喜欢以数据说话。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于`webpack3`升级后，新增了 **Scope Hositing（作用域提升）** 
+功能，据说是对`js`的性能提升很大。因此，我们做了一个测试对比，就是`webpack3`和`webpack1/2` 的性能对比，如下：
 
 ### 测试目标
 
@@ -42,7 +43,7 @@
 
 ### 升级webpack3
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今天只拿`vue`项目来说，不要问为什么，只是用得比较熟而已，而且`vue-cli`升级`w3`简直不要太快哦，而且也有项目上线成功了。如果使用的是`react`项目，用的又是脚手架的话，那么恭喜你，跟`vue-cli`一样快，如果你自己写的，`w2`的话加一个配置（可以体验跟`vue-cli`一样的升级体验哦）：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今天只以`vue`项目来举例，`vue-cli`升级`w3`简直不要太快哦，而且也有项目上线成功了，并且线上测试与本地测试结果基本一致。如果使用的是`react`项目，用的又是脚手架的话，那么恭喜你，跟`vue-cli`一样快，可参考`vue-cli`的升级方式，如果你自己写的`w2`的话加一个配置（可以体验跟`vue-cli`一样的升级体验哦），然后升级相应扩展：
 
 ````
 new webpack.optimize.ModuleConcatenationPlugin()
