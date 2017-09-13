@@ -131,7 +131,9 @@ module.exports = merge(options, {
 })
 ```
 这样产出后在dist目录下就会出现btn, swipe目录。
-![image](./images/img1.png)
+
+![](images/dist.png)
+
 那么按需引入怎么引入呢？
 ```
 import Btn from 'vue-ui-lib/dist/btn'
