@@ -11,9 +11,8 @@ PWA（Progressive Web Apps,渐进式网页应用）是Google在2015年推出的�
 5.数据传输必须是https
 
 ### 缺点
-1.safari暂无支持PWA的打算
-2.PUSH还不够成熟，Chrome 50/Android Chrome 55依赖于[Web Push Protocol](https://tools.ietf.org/html/draft-ietf-webpush-protocol-12),之前版本只支持Google私有的GCM/FCM服务进行通知推送
-3.中国安装Chrome的用户非常少，以及网络限制问题，推动PWA非常困难
+1.safari对PWA的态度是考虑中,暂时还不支持
+2.PUSH还不够成熟，依赖于[Web Push Protocol](https://tools.ietf.org/html/draft-ietf-webpush-protocol-12),Chrome只支持Google私有的GCM（Google Cloud Messaging）/FCM服务进行通知推送。国内的mipush也支持了很多app，在此希望中国能尽快有一个统一的推送服务出现~
 
 ### 个人观点
 PWA属于非侵入式的技术，可以做到降级兼容，并且拥有强大的离线功能，可以更快的相应，所以还是非常推荐使用的。
