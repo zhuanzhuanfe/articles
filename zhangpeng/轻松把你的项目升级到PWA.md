@@ -26,16 +26,110 @@ PWA属于非侵入式的技术，可以做到降级兼容，并且拥有强大�
 [Web App Manifest Generator](https://app-manifest.firebaseapp.com/)如果手写也有像这样的工具提供~
 
 ## Service workers
-**升级主要用到的API**
 **定义：**
 Service workers 本质上充当Web应用程序与浏览器之间的代理服务器，也可以在网络可用时作为浏览器和网络间的代理。它们旨在（除其他之外）使得能够创建有效的离线体验，拦截网络请求并基于网络是否可用以及更新的资源是否驻留在服务器上来采取适当的动作。他们还允许访问推送通知和后台同步API。
+
 **生命周期：**
 注册→下载→安装→激活
+
+**状态**
+`installing` 、`installed` 、`waiting` 、`activating` 、`activated`
+
+**主要事件**
+`install` 准备sw用于使用，例如创建缓存，放置离线资源
+`activate` 此时可以清理旧缓存及相关的东西以便更新 
+`fetch` 响应请求事件，通过`FetchEvent.respondWith`方法，对这些请求做处理 
+install、activate事件会触发`waitUntil`方法
+
 **注意：**
 1.Service workers运行在其他线程，完全异步，同步API不能在其中使用
 2.大量使用Promise
-**常用API**
 
+## Cache
+**方法**
+`add()`、`addAll()`、`delete()`、`keys()`、`match()`、`matchAll()`
 
-## 升级项目
+## 基础用法
+单独创建一个app.js文件，放到根目录,并在index.html中引用它
+`app.js`
+```ecmascript 6
+if ('serviceWorker' in navigator) { 
+  // register service worker
+  navigator.serviceWorker.register('/service-worker.js', {scope: './'})   // 参数1：注册提供的脚本URL 参数2：导航匹配
+  .then(function(registration) {
+      // 注册成功
+      // registration对象存有对sw所在生命周期的状态及状态变更事件及一些父接口的方法
+      // 状态分别有 installing 、 installed 、 waiting 、 activating 、 activated
+      if(registration.installing) {
+        console.log('Service worker installing');
+      } else if(registration.waiting) {
+        console.log('Service worker installed');
+      } else if(registration.active) {
+        console.log('Service worker active');
+      }
+  }).catch(function(error) {
+      // 注册失败
+  });
+}
+```
+根目录下创建执行文件service-worker.js
+`service-worker.js`
+```ecmascript 6
+// 缓存静态文件
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+      // 缓存指定文件
+    caches.open('v1').then(function(cache) {    
+      return cache.addAll([
+        '/',
+        '/index.html',
+        '/style.css',
+        '/app.js',
+        '/image-list.js',
+        '/star-wars-logo.jpg',
+      ]);
+    })
+  );
+});
 
+// 缓存接口数据
+self.addEventListener('fetch', function(event) {
+  event.respondWith(caches.match(event.request).then(function(response) {
+    // 匹配到请求
+    if (response !== undefined) {
+      return response;
+    } else {
+      return fetch(event.request).then(function (response) {
+        // 缓存响应数据
+        let responseClone = response.clone();
+        
+        caches.open('v1').then(function (cache) {
+          cache.put(event.request, responseClone);
+        });
+        return response;
+      }).catch(function () {
+        return caches.match('/gallery/myLittleVader.jpg');
+      });
+    }
+  }));
+});
+
+// 更新缓存
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          // 如果有更新
+          if (cacheName !== 'v1') {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+    .then(function(){
+      return self.clients.claim()
+    })
+  );
+});
+```
