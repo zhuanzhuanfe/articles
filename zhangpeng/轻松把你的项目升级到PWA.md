@@ -16,7 +16,6 @@ PWA（Progressive Web Apps,渐进式网页应用）是Google在2015年推出的�
 
 ### 个人观点
 PWA属于非侵入式的技术，可以做到降级兼容，并且拥有强大的离线功能，可以更快的响应，所以还是非常推荐使用的。
-之前有推过**小型Web页打包优化**这片文章，现在我们就来改造一下这个项目内的一个小项目，为其增加PWA功能
 
 ## 网络应用清单
 网络应用清单是一个 `JSON` 文件，主要定义一些启动网址，自定义图标，启动画面，主题颜色，启动样式等等配置信息
@@ -55,7 +54,7 @@ install、activate事件会触发`waitUntil`方法
 ```ecmascript 6
 if ('serviceWorker' in navigator) { 
   // register service worker
-  navigator.serviceWorker.register('/service-worker.js', {scope: './'})   // 参数1：注册提供的脚本URL 参数2：导航匹配
+  navigator.serviceWorker.register('./service-worker.js', {scope: './'})   // 参数1：注册提供的脚本URL 参数2：导航匹配
   .then(function(registration) {
       // 注册成功
       // registration对象存有对sw所在生命周期的状态及状态变更事件及一些父接口的方法
@@ -133,3 +132,49 @@ self.addEventListener('activate', function(event) {
   );
 });
 ```
+
+## webpack项目升级PWA
+看到上边n多的API是不是很头疼，以及手动添加静态文件是不是很绝望，那么[sw-precache-webpack-plugin](https://www.npmjs.com/package/sw-precache-webpack-plugin)这个插件轻松帮你解决所有问题
+现在我们就来升级下之前推过的**小型Web页打包优化**这片文章中所介绍的脚手架
+
+### 1.修改文件：
+1. `index.html`
+```html
+<script>
+  if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+          navigator.serviceWorker.register('./service-worker.js');
+      });
+  }
+</script>
+```
+
+2. `webpack.prod.config.js`
+```ecmascript 6
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+// plugins 数组内添加
+new SWPrecacheWebpackPlugin({
+    cacheId: 'my-vue-app',
+    filename: 'service-worker.js',
+    minify: true,
+    // 其他更多配置请查看官方文档
+})
+```
+自动生成service-worker.js并自动完成相关配置
+
+### 2.通过正常逻辑打包~
+```bash
+npm run build ZZSellerTip
+```
+
+### 3.启动一个本地静态服务器
+为了方便调试Service Worker在http://localhost或者http://127.0.0.1 本地环境下也可以跑起来
+将打包好的文件通过http-server生成的静态服务器运行
+运行结果：
+![](images/sw-01.png)
+关掉http-server可以看到依然可以访问
+![](images/sw-02.png)
+致此，项目改造就算完成了，总体来说改造成本还是很低的，所以小伙伴们一起搞起来吧~
+
+
+
