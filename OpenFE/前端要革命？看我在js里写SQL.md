@@ -9,7 +9,7 @@
 
 ![](http://img.58cdn.com.cn/zhuanzhuan/ZZOpenBusiness/other/img/art3.jpg)
 > 比如地区联动查询界面，难点在于：
-> 
+>
 1. 如何在本地存储地区数据，显然每次拉接口是不现实的，如果存储在storage里，每次使用时，需要有类似JSON.parse类的字符串转化为数组或对象的过程，这个操作在数据量大的时候，会造成页面卡顿，性能极差
 2. 三级地区联动查询复杂，如果要从一个县级地区查询到所属的城市和省份，逻辑会比较复杂
 
@@ -42,8 +42,7 @@
 - executeSql：这个方法用于执行SQL 查询
 
 代码示例：
-` 
-
+```jvascript
 	var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);
     var msg;
     db.transaction(function (context) {
@@ -52,11 +51,11 @@
        context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');
        context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');
      });
-` 
+````
 **对于没有SQL经验的前端同学来讲，上面代码看起来显然有点陌生，也不太友好，于是Database.js诞生了：**
 > 笔者以业务当中的一个需求举例：
 > **转转游戏业务列表页**筛选菜单是一个三级联动菜单，每个菜单变动都会影响其他菜单数据，如图：
-> 
+>
 ![](http://img.58cdn.com.cn/zhuanzhuan/ZZOpenBusiness/other/img/art4.jpg)
 
 **原始JSON数据结构**
@@ -74,7 +73,7 @@
 **通过chrome控制台Application面板可以直接看到数据库，结构、数据清晰可见**
 
 **核心代码如下：**
-` 
+```javascript
 
      /**
        * 打开数据库
@@ -83,7 +82,7 @@
       openDataBase(){
 		//打开数据库，没有则创建
         db.openDatabase('GameMenu',1,'zzOpenGameMenu').then(res=>{
-		  //检测数据库是否存在	
+		  //检测数据库是否存在
           db.isExists('game').then(res=>{
             //数据库已经存在，直接使用,将数据交付给页面UI组件
             this.setSelectData()
@@ -103,16 +102,15 @@
 		//接口请求数据并处理成三个扁平数组
         let data =  await this.getMenuData()
         for(let i in data){
-		  //创建表并存储数据	
+		  //创建表并存储数据
           db.create(i,data[i])
         }
 		//将数据交付给页面UI组件
         this.setSelectData()
       },
-` 
+```
 **当任意菜单选择变更时，三列数据将重新查询，核心代码如下：**
-` 
-
+```javascript
 	 /**
        * 重新查询数据
        * @param data 点击菜单携带的数据
@@ -142,6 +140,7 @@
 		//将数据交付给联动菜单组件使用
         this.selectData = target
       }
+```
 
 **以上代码即可完成联动菜单所需要的数据管理工作，看起来是不是比较清晰？**
 
@@ -177,13 +176,13 @@
 	- callback:成功回调
 	- errorCallback：失败回调
 - 示例：
-` 
+```javascript
 	  //插入数据
       db.query('INSERT INTO testTable(id,title) VALUES (?,?)',[1,'这是title'])
-	  
+
       //多表查询
      db.query('select game.*,plat.* from game left join plat on game.name = plat.gameName')
-` 
+```
 
 
 **isExists**
@@ -199,13 +198,13 @@
 	- tableName：表名
 	- fields：表结构(需指定字段类型)
 - 示例：
-` 
+```javascript
 
       db.createTable('testTable',{
           name:'varchar(200)',
           price:'int(100)'
       })
-` 
+```
 
 **insert**
 - 功能：插入一条或多条数据
@@ -214,19 +213,19 @@
 	- tableName：表名
 	- data（Object or Array）：插入的数据，多条数据请传入数组类型
 - 示例：
-` 
-	  //插入单条	
+```javascript
+	  //插入单条
       db.insert('testTable',{
 		name:'商品1',
 		price:10
 	  })
-	  //插入多条	
+	  //插入多条
       db.insert('testTable',[
         {name:'商品1',price:10},
         {name:'商品2',price:20},
         {name:'商品3',price:30},
       ])
-` 
+```
 
 >**将数据存入数据库的常规流程是先createTable，然后再insert，如果你觉得这样麻烦，可以试一下create方法：**
 
@@ -238,15 +237,15 @@
 	- tableName：表名
 	- data（Object or Array）：插入的数据，多条数据请传入数组类型
 - 示例：
-` 
-	 
+```javascript
+
 	  //直接创建表并存储
       db.create('testTable',[
         {name:'商品1',price:10},
         {name:'商品2',price:20},
         {name:'商品3',price:30},
       ])
-` 
+```
 
 **delete**
 - 功能：删除数据
@@ -255,12 +254,11 @@
 	- tableName：表名
 	- condition（String or Obejct）：查询条件
 - 示例：
-` 
-	 
+
+```javascript
 	  //删除一条数据
       db.delete('testTable',{name:'商品1'})
-
-` 
+```
 
 >关于condition：
 >**1、传入array形式时，默认查询条件连接方式是AND，如果需要用OR等方式，可以在condition中传入_logic设定，例如{_logic：'OR'}**
@@ -278,8 +276,8 @@
 	- group（String or Array）：分组规则
 	- limit（String or Array）：分页规则
 - 示例：
-` 
-	 
+```javascript
+
 	  //查询name=商品1的数据，并按照price倒序
       db.select('testTable',{
 		    name:'商品1'
@@ -290,7 +288,7 @@
 		    price:'>0'
 		},'distinct name,pirce','price desc')
 
-` 
+```
 
 **update**
 - 功能：更新数据
@@ -300,16 +298,14 @@
 	- data（String or Obejct）：更改数据
 	- condition（String or Obejct）：查询条件
 - 示例：
-` 
-	 
+```javascript
 	  //将商品1的价格改为99
       db.update('testTable',{
 		    price:99
 		},{
 			name:'商品1'
 		})
-
-` 
+```
 
 **truncate**
 - 功能：清空表
