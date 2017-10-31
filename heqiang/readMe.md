@@ -108,7 +108,7 @@ Hydrating一个服务端渲染的容器现在有了一个明确的API，如果�
 	* shallow renderer不再实现unstable_batchedUpdates()。
 
 #####打包#####
-* 不再有react/lib/* 和 react-dom/lib/*。即使在CommonJS环境下，React和ReactDOM都会预编译成单独的文件("flat bundles")。如果你的项目之前依赖于没有文档化的React内部方法，但是现在它们不再有效，联系我们让我们知道你的特殊栗子，我们会尽量提出一个可融合方案。
+* 不再有react/lib/\* 和 react-dom/lib/\*。即使在CommonJS环境下，React和ReactDOM都会预编译成单独的文件("flat bundles")。如果你的项目之前依赖于没有文档化的React内部方法，但是现在它们不再有效，联系我们让我们知道你的特殊栗子，我们会尽量提出一个可融合方案。
 * 不再构建react-with-addons.js。所有兼容的插件都会发布到npm上，如果你需要我们也提供了浏览器单文件版本。
 * 在15.x中启用部分的介绍已经在核心包中被去掉了。如下的这些方法是等效的，
 React.createClas <=> create-react-class，React.ProprTypes <=> prop-types，React.DOM <=> react-dom-factories, react-addons-test-utils <=> react-dom/test-utils,shallow renderer <=> react-test-renderer/shallow。可以查看15.5.0及15.6.0版本的博客以了解融合代码及自动化codemods。
