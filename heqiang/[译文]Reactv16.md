@@ -1,8 +1,8 @@
+## [译文]React v16（新特性）
+
 [查看原文内容](https://deploy-preview-10824--reactjs.netlify.com/blog/2017/09/26/react-v16.0.html)
 
-
 ----------
-
 
  我们很高兴的宣布React v16.0发布了! 这个版本有很多长期被使用者期待的功能，包括：
 
@@ -16,7 +16,7 @@
 
 （下面逐一说明）
 
-#####render函数可返回新的类型：数组和字符串
+##### render函数可返回新的类型：数组和字符串
 
 新的版本支持组件的render方法返回包含元素的数组类型，代码如下：
 
@@ -36,7 +36,7 @@
 关于render()方法的详细说明，请查看[API文档](https://deploy-preview-10824--reactjs.netlify.com/docs/react-component.html#render)。
 
 
-#####更好的处理错误
+##### 更好的处理错误
 
   之前的React,渲染过程中如果遇到运行时的错误，可能会导致整个React组件的崩溃，并产生一些隐藏的错误信息，需要重新刷新才能恢复。为了解决这个问题，React16 使用了一个更有弹性的错误处理策略。默认情况下，如果一个错误是在组件的渲染或者生命周期方法中被抛出，整个组件结构就会从根节点中卸载。这种方式阻碍了被坏数据的展示，然而，却不是很好的用户体验。
 
@@ -45,7 +45,7 @@
   想要查看更多关于这个特性的说明，请查看[这篇文章](https://deploy-preview-10824--reactjs.netlify.com/blog/2017/07/26/error-handling-in-react-16.html)。
 
 
-#####挂载方式
+##### 挂载方式
 
 Portals（挂载方式）提供了一个非常好的方式，可以将渲染的children插入到一个DOM节点，而这个节点可以是存在于当前组件dom结构外的其他节点。
 
@@ -60,17 +60,17 @@ render() {
 ```
 [查看完整的例子](https://deploy-preview-10824--reactjs.netlify.com/docs/portals.html)
 
-#####更好的服务端渲染
+##### 更好的服务端渲染
 
 React16更好的支持服务端html的渲染，不再需要服务端进行初始化渲染以匹配结果了，它会尝试重新利用尽可能多的已经存在的DOM节点。
 
 服务端渲染器被完全重写用以支持流。React的核心成员Sasha Aicken，它是这个功能的贡献者，写了一篇非常好的[文章](https://medium.com/@aickin/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)来描述React16 SSR的提升。“渲染流的方式能够减少获取响应首字节前所花费的毫秒数(TTFB),将页面文档的开头沿着电缆发送到浏览器端时，下一部分的页面文档已经形成了。用这种流的方式，所有的主流浏览器都会更早的开始解析和渲染页面文档”。
 
-#####支持自定义的DOM属性
+##### 支持自定义的DOM属性
 
 取代之前忽略不识别的HTML和SVG属性的方式，新的版本将会把它们传递给DOM元素。这个新特性会让我们摆脱可用的React属性白名单，从而减少文件的大小。
 
-#####减少文件体积
+##### 减少文件体积
 
 除了上面提交到的这些特性，React16要比v15.6.1更小！
 
@@ -80,7 +80,7 @@ React16更好的支持服务端html的渲染，不再需要服务端进行初始
 
 文件大小的变化部分归功于打包工具的改变。React现在使用Rollup针对不同的目标格式创建打包，进而使文件大小和运行时性能都表现优秀。
 
-#####新的核心架构
+##### 新的核心架构
 
 React16是React第一个建立在一个称为"Fiber"全新架构的版本。你可以通过阅读Facebook的工程博客了解Fiber全部的内容。
 
@@ -94,15 +94,15 @@ React16是React第一个建立在一个称为"Fiber"全新架构的版本。你�
 ----------
 
 
-####升级
+#### 升级
 
 就长期的升级来说，尽管React16只是包括了一些有意义的内部改变，这个版本和其他主要的React版本仍可平分秋色。在今年早期的时候，新版版已服务于React和Messenger.com，然后我们通过发布一些beta版本和候选版本来解决增加的问题。除少数例外，如果你的项目使用v15.6版本没有任何警示，那么可以升级到v16来服务项目了。
 
-#####弃用
+##### 弃用
 
 Hydrating一个服务端渲染的容器现在有了一个明确的API，如果你要进行服务端渲染，请使用ReactDOM.hydrate方法替换ReactDOM.render，客户端的渲染请保持使用ReactDOM.render方法。
 
-#####突破变化
+##### 突破变化
 
 * React15有局限，使用未被文档化的unstabel_handleError来支持error boundaries。在新版本中，这个方法被命名为了componentDidCatch。你可以使用codemod将项目[自动迁移到新的API上](https://github.com/reactjs/react-codemod#error-boundaries)。
 * 如果ReactDOM.render和ReactDOM.unstable_renderIntoContainer在生命周期方法中被调用，则返回null。为了解决这个问题，你可以使用[portals或者refs](https://github.com/facebook/react/issues/10309#issuecomment-318434635)
@@ -117,7 +117,7 @@ Hydrating一个服务端渲染的容器现在有了一个明确的API，如果�
 	* shallow render不再调用componentDidUpdate()因为DOM refs不再有效。
 	* shallow renderer不再实现unstable_batchedUpdates()。
 
-#####打包
+##### 打包
 
 * 不再有react/lib/\* 和 react-dom/lib/\*。即使在CommonJS环境下，React和ReactDOM都会预编译成单独的文件("flat bundles")。如果你的项目之前依赖于没有文档化的React内部方法，但是现在它们不再有效，联系我们让我们知道你的特殊栗子，我们会尽量提出一个可融合方案。
 * 不再构建react-with-addons.js。所有兼容的插件都会发布到npm上，如果你需要我们也提供了浏览器单文件版本。
