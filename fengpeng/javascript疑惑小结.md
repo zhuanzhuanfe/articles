@@ -98,24 +98,22 @@ Phone.prototype.getInfo = function () {
            }
  }
 ```
-要的到对象，必须使用new关键字
+要得到对象，必须使用new关键字
 ```
     var phone = new Phone('iPhoneX',5.8);
 
 ```
-
-
-
 3、作为对象的方法
-```var obj = {
+```
+var obj = {
     name: 'Bob',
     getName: function (){
-     console.log(this);//{name: "Bob", getName: ƒ},指向obj对象
+     console.log(this);//{name: "Bob", getName: ƒ},this指向obj对象
     }
 }
 ```
 ### 改变函数的作用域
-每一个函数都有2个比较重要的改变作用域的方法：apply和call，通过这两个方法，可以改变函数中this的指向。主要的区别是传递参数的方法不同，apply接收数组或者类数组（arguments对象），而call只能逐个传递需要的参数。在记忆的时候可以通过首字母来区分，由于数组array的第一个字母也是a，所以可以据此记忆applay接收数组作为参数。
+函数作为特殊的对象，也有自己的方法，每一个函数都有2个比较重要的改变作用域的方法：apply和call，通过这两个方法，可以改变函数中this的指向。主要的区别是传递参数的方法不同，apply接收数组或者类数组（arguments对象），而call只能逐个传递需要的参数。在记忆的时候可以通过首字母来区分，由于数组array的第一个字母也是a，所以可以据此记忆applay接收数组作为参数。
 在学习比人代码的过程中，看到有这么个写法：Array.prototype.slice.call()，根据以上内容来，我们来一步一步来揭开它神秘的面纱吧。
 
 
@@ -141,15 +139,10 @@ Phone.prototype.getInfo = function () {
 var obj = {0:'hello',1:'world',length:2};
 console.log(Array.prototype.slice.call(obj,0));//["hello", "world"]
 ```
-arguments对象可以认为与上述对象类似，所以可以把arguments对象转换成数组。
-如果对象没有length属性，那么浏览器会怎么解析呢？
-
-```
-var obj = {0:'hello',1:'world'};//没有length属性
-console.log(Array.prototype.slice.call(obj,0));//[]
-```
+arguments对象可以认为与上述对象类似，所以通过该方法可以把arguments对象转换成数组。
  ### ES6中函数的变化
  1、箭头函数
+ 
  在ES6语法中，可以使用=> 来定义函数，这样定义函数使得表达更加的精简。
  ```
     () => {
@@ -157,12 +150,64 @@ console.log(Array.prototype.slice.call(obj,0));//[]
     }
 ```
 ()中是声明函数时的形参，{}中是函数体。
-箭头函数和以前用function声明的函数有什么区别呢？
-- this的对象指向比较固定，在定义函数的时候，this的指向就已经确定了，指向定义函数时所处的对象。这一点在传递回调函数时尤为明显。其实，箭头函数并没有属于自己的this，从而使得函数内部的this就是外层环境中的this。
-- 箭头函数不能用作构造函数。很明显，箭头函数没有属于自己的this对象，所以，无法作为构造函数去使用。
-- 箭头函数没有arguments对象，箭头函数内部的arguments对象时指向外层函数的arguments对象。
+
+**箭头函数和以前用function声明的函数有什么区别呢？**
+
+主要区别在于this的指向不同，箭头函数中this的对象指向比较固定，在定义函数的时候，this的指向就已经确定了，会指向定义函数时所处的对象。这一点在异步调用时尤为明显。
+```
+var num = 100;
+var count = {
+	num:1,
+	add:function(){
+		setInterval(function(){
+			this.num++;
+			console.log(this.num);
+		},1000);
+	}
+}
+count.add(); // 101,102...
+```
+setInterval方法是异步调用的，并且是在全局作用域中执行的，所以，上述代码中的this指向window对象，而我们的额本意是要使得对象内部的num递增，所以，我们只能考虑手动设置this的指向。
+```
+var num = 100;
+var count = {
+	num:1,
+	add:function(){
+	    var _this = this;
+		setInterval(function(){
+			_this.num++;
+			console.log(this.num);
+		},1000);
+	}
+	/*add:function(){
+    		setInterval(function(){
+    			this.num++;
+    			console.log(this.num);
+    		}.bind(this),1000);
+    	}*/
+}
+count.add(); // 2,3...
+```
+在上面的代码中，保存对象的this指针或者通过bind方法改变this的指针，都可以输出预期的效果。如果使用箭头函数的话，则不需要手动设置this的指向，就能达到我们预期的效果：
+```
+var num = 100;
+var count = {
+	num:1,
+	add (){
+		setInterval(() => {
+			this.num++;
+			console.log(this.num);
+		},1000);
+	}
+}
+
+count.add();
+```
+箭头函数不能用作构造函数。很明显，由于箭头函数没有属于自己的this对象，所以，无法作为构造函数去使用。
+
 
  2、使用class语法来实现面向对象
+ 
  在ES6之前，使用构造函数来创建对象，阅读起来并不是很清晰。ES6提供的class语法跟其他面向对象的语言语法较为接近。
  使用ES6的语法来改写一下上面用构造函数定义的“类”。
  ```
@@ -184,4 +229,4 @@ console.log(Array.prototype.slice.call(obj,0));//[]
 看起来是不是特别像C++语言中的面向对象风格呢~~~
 
 
-希望这些总结能解决你的一些疑惑~~~学习JavaScript是一个渐进的过程，除了自己多做总结之外，还可以去社区中去回答别人提出的问题，不断给自己正向鼓励。骐骥一跃，不能十步，驽马十驾，功在不舍。多总结，多做笔记，多思考，不断踩坑，不断填坑，每天进步一点点，不断提高自己的专业技能。
+学习JavaScript是一个渐进的过程。JavaScript语言中的函数内容相当丰富，需要不断去通过实践去加深理解。骐骥一跃，不能十步，驽马十驾，功在不舍。多总结，多做笔记，多思考，不断踩坑，不断填坑，每天进步一点点，不断提高自己的专业技能。
