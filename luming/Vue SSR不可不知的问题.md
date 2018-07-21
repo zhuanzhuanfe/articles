@@ -190,7 +190,73 @@ vue有两种路由模式，一种是hash模式，就是我们经常用的#/hasha
 （2）目前采用的方法
 	a.服务端数据预获取过程中出现的异常，让页面继续渲染，不抛出500异常页面，打错误日志，接入监控。同时，在页面加入标志，让前端页面再次进行一次数据获取页面渲染的尝试。
 	b.页面渲染过程的异常。由于目前渲染过程是vue提供的一个插件进行的，异常不好捕获，同时出现问题的概率不是很大，因此还没有做专门的处理。
+	
+	代码如下：
+	
+	entry-server.js服务端部分：
+	
+	```
+	Promise.all(matchedComponents.map(component => {
+		//代码略，参见官方文档
+	})).then(() => {
+		//代码略，参见官方文档
+	}).catch(err => {
+		//官方代码在这里直接抛出异常，从而走500错误页面
+		
+		//我们做如下处理，首先打印错误日志，将日志加入监控报警，监控异常
+		console.log('rendererror','entry-server',err);
+		// 其次，增加服务端预渲染错误标识，前端拿到标志后重新渲染
+		context.serverError = true;
+		//最后，将服务端vue实例正常返回，避免抛500
+		resolve(app)
+	})	
+	```
+	
+	index.template.html页面模板部分增加如下js代码：
+	
+	```
+	// 服务端渲染错误标识
+	window.__serverRenderError = {{serverError || false}};	
+	```
+	
+	entry-client.js客户端部分：
+	
+	```
+	// ...忽略无关代码
+	router.onReady((currentRoute) => {
 
+		// ...忽略无关代码
+		
+		//如果拿到服务端的错误状态，则执行客户端渲染程序
+		if(window.__serverRenderError){
+			feCompatibleRende(currentRoute);
+		}
+		app.$mount('#app');
+	})	
+		
+	// node报错时前端路由重渲染
+    function feCompatibleRende(route){
+        let matched = router.getMatchedComponents(route);
+        console.log('前端兼容渲染执行');
+        Promise.all(matched.map(c => {
+            if (c.preFetch) {
+                return c.preFetch({
+                    store,
+                    route,
+                    req: {
+                        headers: {
+                            cookie: document.cookie
+                        }
+                    }
+                })
+            }
+        })).then(() => {
+            console.log('ok');
+        }).catch((e)=>{
+            console.error(e);
+        })
+    }
+	```
 总结：总结起来一句话，为了更好的体验，不要出现500。
 
 ### 性能
@@ -273,9 +339,32 @@ export default {
 最基本的DDOS攻击就是利用合理的服务请求来占用过多的服务资源，从而使合法用户无法得到服务的响应
 
 应对：
+
 1.提升硬件设备
+
+硬件性能越好，提供的服务并发能力越强，这样即使有小量的DDOS攻击也可以不影响正常用户的访问。
+
 2.在服务端只做最基本的处理
+
+
+在服务端不做过多复杂的数据处理，可以有效的提高ssr的性能。
+
+
 3.日志只打印关键部位的关键信息
+
+
+打印日志过多将耗费服务器资源，影响服务器的性能。
+
+
+4.DDOS流量清洗
+
+部署流量清洗相关设备，可以对网络中的DDoS攻击流量进行清除，同时保证正常流量的通过。
+
+5.DDOS软硬件防火墙
+
+软件防火墙解决方案为将软件防火墙部署到被保护的服务器上，优点是成本低、方便、灵活，缺点是作用有限、占用资源。
+
+硬件防火墙解决方案为安装防火墙硬件，优点是效果好，缺点是成本高。
 
 (2)sql注入
 
