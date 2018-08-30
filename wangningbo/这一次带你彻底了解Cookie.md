@@ -11,7 +11,7 @@ cookie翻译过来是“饼干，甜品”的意思，cookie在网络应用中�
 
 其实cookie是一个很小的文本文件，是浏览器储存在用户的机器上的。Cookie是纯文本，没有可执行代码。储存一些服务器需要的信息，每次请求站点，会发送相应的cookie，这些cookie可以用来辨别用户身份信息等作用。
 
-![image](./images/cookie01.png)
+<img src="images/cookie01.png">
 
 如图所示,用户首次访问服务器，服务器会返回一个独一无二的识别码；id=23451，这样服务器可以用这个码跟踪记录用户的信息，（购物历史，地址信息等）。
 
@@ -81,7 +81,7 @@ console.log(document.cookie);
 ### 第三方cookie
 
 通常cookie的域和浏览器地址的域匹配，这被称为第一方cookie。那么第三方cookie就是cookie的域和地址栏中的域不匹配，这种cookie通常被用在第三方广告网站。为了跟踪用户的浏览记录，并且根据收集的用户的浏览习惯，给用户推送相关的广告。
-![image](./images/cookie02.png)
+<img src="images/cookie02.png">
 
 如上图（a）：用户访问服务器1的一个页面index.html，这个页面和第三方广告网站合作，这个页面还有一张www.advertisement.com域名下的一张广告图ad1.jpg，当请求这张ad1.jpg图片的时候，www.advertisement.com这个服务器会给用户设置cookie
 ```
