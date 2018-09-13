@@ -1,4 +1,4 @@
-    TypeScript(TS)是微软研发的编程语言，是JavaScript的超集，也就是在JavaScript的基础上添加了一些特性.其中之一就是类型声明.
+TypeScript(TS)是微软研发的编程语言，是JavaScript的超集，也就是在JavaScript的基础上添加了一些特性.其中之一就是类型声明.
 
 **一、基础类型**
 
@@ -84,19 +84,19 @@ never类型也是任何类型的子类型，也可以赋值给任何类型；
     }
 
 
-二、类型断言
+**二、类型断言**
 
 类似其他语言的强制类型转换
 类型断言有两种形式。
 
 其一是“尖括号”语法：
     
-     let someValue: any = "this is a string";
+    let someValue: any = "this is a string";
     
     let strLength: number = (<string>someValue).length;
 另一个为as语法：
 
-     let someValue: any = "this is a string";
+    let someValue: any = "this is a string";
     
     let strLength: number = (someValue as string).length;
 
