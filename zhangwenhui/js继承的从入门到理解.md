@@ -139,7 +139,7 @@ console.log(constructorFn.prototype.__proto__ === Object.prototype) // true
 ```
 用图形表示的话，如下：
 
-<img src="./assets/1_1.png" />
+<img src="./images/1_1.png" />
 
 可以看出，constructor.prototype.\_\_proto\_\_的指向是Object的原型对象。<br/>
 那么，Object.prototype.\_\_proto\_\_的指向呢？
@@ -153,7 +153,7 @@ console.log(Object.prototype.__proto__); // null
 ```
 用图形表示的话，如下：
 
-<img src="./assets/1_2.png" />
+<img src="./images/1_2.png" />
 
 可以发现，Object.prototype.\_\_proto\_\_ === null;
 这样也就形成了原型链。通过将实例的原型指向构造函数的原型对象的方式，连通了实例-构造函数-构造函数的原型，原型链的特点就是逐层查找，从实例开始查找一层一层，找到就返回，没有就继续往上找，直到所有对象的原型Object.prototype。
