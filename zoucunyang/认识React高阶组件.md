@@ -1,19 +1,19 @@
 ## 认识React高阶组件
+---
+#### 概况：
 
-####概况：
-
-####什么是高阶组件？
+#### 什么是高阶组件？
 >高阶部件是一种用于复用组件逻辑的高级技术，它并不是 React API的一部分，而是从React 演化而来的一种模式。 具体地说，高阶组件就是一个接收一个组件并返回另外一个新组件的函数！
 
 这是官方文档说的，我没有截全，因为后面的解释会造成误解，但简单讲高阶组件（函数）就好比一个加工厂，同样的，屏幕、cpu、扬声器、键盘按键、外壳、电池，小米手机工厂组装完就是小米手机，魅族手机组装完就是魅族手机，基本材料都是相同的，不同工厂（高阶组件）有不同的实现及产出，当然这个工厂（高阶组件）也可能是针对某个基本材料的处理。
 总之产出的结果拥有了输入组件不具备的功能，输入的组件可以是一个组件的实例，也可以是一个组件类，还可以是一个无状态组件的函数。
 
-####解决什么问题？
+#### 解决什么问题？
 
 随着项目越来越复杂，开发过程中，多个组件需要某个功能，而且这个功能和页面并没有关系，所以也不能简单的抽取成一个新的组件，但是如果让同样的逻辑在各个组件里各自实现，无疑会导致重复的代码。比如页面有三种弹窗一个有title，一个没有，一个又有右上角关闭按钮，除此之外别无它样，你总不能整好几个弹窗组件吧，这里除了tilte,关闭按钮其他的就可以做为上面说的基本材料。
 
 ---
-####高阶组件总共分为两大类
+#### 高阶组件总共分为两大类
 
 - 代理方式
   1. 操纵prop
@@ -24,9 +24,9 @@
   1. 操纵生命周期
   2. 操纵prop
 
-####代理方式之 操纵prop
+#### 代理方式之 操纵prop
 
-######删除prop
+###### 删除prop
 ```javascript
 import React from 'react'
 function HocRemoveProp(WrappedComponent) {
@@ -40,7 +40,7 @@ function HocRemoveProp(WrappedComponent) {
 export default HocRemoveProp;
 
 ```
-######增加prop
+###### 增加prop
 接下来我把简化了写法，把匿名函数去掉，同时换成箭头函数
 ```javascript
 import React from 'react'
@@ -79,7 +79,7 @@ render() {}
 }
 export default SampleComponent;
 ```
-####代理方式之 抽取状态
+#### 代理方式之 抽取状态
 将所有的状态的管理交给外面的容器组件，这个模式就是 抽取状态
 外面的容器就是这个高阶组件
 ```javascript
@@ -118,7 +118,7 @@ class SampleComponent extends React.Component {
 这样当我们在使用这个已经被包裹的input组件（SampleComponent）时候
 它的值就被放在了HocContainer高阶组件中，当很多这样的input组件都用这个HocContainer高阶组件时，那么它们的值都将保存在这个HocContainer高阶组件中
 
-####代理方式之 包装组件
+#### 代理方式之 包装组件
 
 ```javascript
 const HocStyleComponent = (WrappedComponent, style) =>
@@ -142,7 +142,7 @@ const  newComponent = HocStyleComponent(SampleComponent, colorSytle);
 - 代理方式的生命周期的过程类似于堆栈调用:
 didmount 一> HOC didmount 一>(HOCs didmount) 一>(HOCs will unmount) 一>HOC will unmount一>unmount
 
-####在说继承方式之前先看一个例子
+#### 在说继承方式之前先看一个例子
 ```javascript
 const MyContainer = (WrappedComponent) =>
   class extends WrappedComponent {
@@ -159,7 +159,7 @@ didmount 一> HOC didmount 一>(HOCs didmount) 一>will unmount一>HOC will unmo
 - 在继承方式下，产生的新组件和参数组件合二为一，super.render只是生命周期中的函数，变成一个生命周期。
 
 来看下面的例子你就会明白了。
-####继承方式之 操纵生命周期(渲染劫持)
+#### 继承方式之 操纵生命周期(渲染劫持)
 
 首先创建一个高阶，在创建一个使用高阶组件的组件，也就是是输入组件，最后我在改变这个输入组件props
 
@@ -201,12 +201,12 @@ export default DemoComponent;
 ```
 然后调用，递减time数值直到变为0
  <DemoComponent time={time}/>
-最后页面的效果就是，当然他不是循环的。先展示”我是一个组件“，我设置了两秒，之后展示”倒计时完成“
+最后页面的效果就是，当然他不是循环的。先展示”我是一个组件“，我设置了两秒，之后展示”倒计时完成“.
 ![image](images/demo.gif)
-######由此可以看出高阶组件也可以控制state
+###### 由此可以看出高阶组件也可以控制state
 但是最好要限制这样做，可能会让WrappedComponent组件内部状态变得一团糟。建议可以通过重新命名state，以防止混淆。
 
-####继承方式之 操纵prop
+#### 继承方式之 操纵prop
  ```javascript
 const HOCPropsComponent = (WrappedComponent) =>
   class extends WrappedComponent {
