@@ -1,4 +1,7 @@
+## 认识React高阶组件
+
 ####概况：
+
 ####什么是高阶组件？
 >高阶部件是一种用于复用组件逻辑的高级技术，它并不是 React API的一部分，而是从React 演化而来的一种模式。 具体地说，高阶组件就是一个接收一个组件并返回另外一个新组件的函数！
 
@@ -9,18 +12,20 @@
 
 随着项目越来越复杂，开发过程中，多个组件需要某个功能，而且这个功能和页面并没有关系，所以也不能简单的抽取成一个新的组件，但是如果让同样的逻辑在各个组件里各自实现，无疑会导致重复的代码。比如页面有三种弹窗一个有title，一个没有，一个又有右上角关闭按钮，除此之外别无它样，你总不能整好几个弹窗组件吧，这里除了tilte,关闭按钮其他的就可以做为上面说的基本材料。
 
+---
 ####高阶组件总共分为两大类
 
-+ 代理方式
+- 代理方式
   1. 操纵prop
   2. 访问ref（不推荐）
   3. 抽取状态
   4. 包装组件
-+ 继承方式
+- 继承方式
   1. 操纵生命周期
   2. 操纵prop
 
 ####代理方式之 操纵prop
+
 ######删除prop
 ```javascript
 import React from 'react'
@@ -134,7 +139,7 @@ const colorSytle ={color:'#ff5555'}
 const  newComponent = HocStyleComponent(SampleComponent, colorSytle);
 ```
 
-+ 代理方式的生命周期的过程类似于堆栈调用:
+- 代理方式的生命周期的过程类似于堆栈调用:
 didmount 一> HOC didmount 一>(HOCs didmount) 一>(HOCs will unmount) 一>HOC will unmount一>unmount
 
 ####在说继承方式之前先看一个例子
@@ -147,11 +152,11 @@ const MyContainer = (WrappedComponent) =>
   }
 ```
 这个例子很简单，相当于把WrappedComponent组件的render方法，通过super.render()方法吐到了MyContainer 中，可以顺序调用。
-+ 继承方式的生命周期的过程类似于队列调用:
+- 继承方式的生命周期的过程类似于队列调用:
 didmount 一> HOC didmount 一>(HOCs didmount) 一>will unmount一>HOC will unmount一>   (HOCs will unmount)
 
-+ 代理方式下WrappedComponent会经历一个完整的生命周期，产生的新组件和参数组件是两个不同的组件，一次渲染，两个组件都会经历各自的生命周期，
-+ 在继承方式下，产生的新组件和参数组件合二为一，super.render只是生命周期中的函数，变成一个生命周期。
+- 代理方式下WrappedComponent会经历一个完整的生命周期，产生的新组件和参数组件是两个不同的组件，一次渲染，两个组件都会经历各自的生命周期，
+- 在继承方式下，产生的新组件和参数组件合二为一，super.render只是生命周期中的函数，变成一个生命周期。
 
 来看下面的例子你就会明白了。
 ####继承方式之 操纵生命周期(渲染劫持)
@@ -197,7 +202,6 @@ export default DemoComponent;
 然后调用，递减time数值直到变为0
  <DemoComponent time={time}/>
 最后页面的效果就是，当然他不是循环的。先展示”我是一个组件“，我设置了两秒，之后展示”倒计时完成“
-![demo.gif](https://upload-images.jianshu.io/upload_images/2660592-aaf13ac10b378942.gif?imageMogr2/auto-orient/strip)
 ![image](images/demo.gif)
 ######由此可以看出高阶组件也可以控制state
 但是最好要限制这样做，可能会让WrappedComponent组件内部状态变得一团糟。建议可以通过重新命名state，以防止混淆。
