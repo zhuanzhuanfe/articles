@@ -1,4 +1,4 @@
-## 认识React高阶组件
+## 当初要是看了这篇，React高阶组件早会了。
 ---
 #### 概况：
 
@@ -227,7 +227,7 @@ React.cloneElement( element, [props], [...children])
 参数：TYPE（ReactElement），[PROPS（object）]，[CHILDREN（ReactElement）]
 克隆并返回一个新的 ReactElement ，新返回的元素会保留有旧元素的 props、ref、key，也会集成新的 props。
 
-##### 最后还有一个方式，在传递props上有着强于高阶组件的优势不用关心命名，
+##### 还有一个方式，在传递props上有着强于高阶组件的优势不用关心命名，
 
  ```javascript
 class addProps extends React.Component {
@@ -251,3 +251,81 @@ showUid(argument) {
     return <div>{argument}</div>
 }
 ```
+##### 彩蛋recompose库
+recompose是一个很流行的库，它提供了很多很有用的高阶组件（小工具），而且也可以优雅的组合它们。
+###### Step 1 扁平props. 
+我们有这样一个组件
+ ```javascript
+const Profile = ({ user }) => ( 
+<div> 
+    <div>Username: {user.username}</div>  
+    <div>Age: {user.age}</div>
+ </div>
+ )
+```
+如果想要改变组件接口来接收单个 prop 而不是整个用户对象，可以用 recompose 提供的高 阶组件 flattenProp 来实现。
+ ```javascript
+const Profile = ({ username，age }) => ( 
+<div> 
+    <div>Username: {username}</div>  
+    <div>Age: {age}</div>
+ </div>
+ )
+```
+const ProfileWithFlattenUser = flattenProp('user')(Profile)；
+现在我们希望同时使用多个高阶组件：一个用于扁平化处理用户 prop，另一个用于重命名用 户对象的单个 prop，不过串联使用函数的做法似乎不太好。 此时 recompose 库提供的 compose 函数就派上用场了。
+ ```javascript
+const enhance = compose(
+ flattenProp('user'),
+ renameProp('username', 'name')
+ )
+```
+然后按照以下方式将它应用于原有组件：
+ const EnhancedProfile = enhance(Profile)
+还可以将 compose 函数用 在我们自己的高阶组件上，甚至结合使用都可以：
+const enhance = compose( flattenProp('user'), renameProp('username', 'name'), withInnerWidth )
+###### Step 2 提取输入表单的State
+
+我们将从Recompose库中使用withStateHandlers高阶组件。 它将允许我们将组件状态与组件本身隔离开来。 我们将使用它为电子邮件，密码和确认密码字段添加表单状态，以及上述字段的事件处理程序。
+```javascript
+import { withStateHandlers, compose } from "recompose";
+
+const initialState = {
+  email: { value: "" },
+  password: { value: "" },
+  confirmPassword: { value: "" }
+};
+
+const onChangeEmail = props => event => ({
+  email: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+const onChangePassword = props => event => ({
+  password: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+const onChangeConfirmPassword = props => event => ({
+  confirmPassword: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+const withTextFieldState = withStateHandlers(initialState, {
+  onChangeEmail,
+  onChangePassword,
+  onChangeConfirmPassword
+});
+
+export default withTextFieldState;
+```
+withStateHandlers它接受初始状态和包含状态处理程序的对象。调用时，每个状态处理程序将返回新的状态。
+
+好了，很辛苦你能看到这里，关于recompose介绍到此为止，喜欢的朋友可以深入研究recompose其它的方法和源码。
+goodbye
