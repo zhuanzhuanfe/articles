@@ -1,4 +1,4 @@
-## 当初要是看了这篇，React高阶组件早会了。
+当初要是看了这篇，React高阶组件早会了。
 ---
 #### 概况：
 
@@ -66,9 +66,10 @@ const { user, ...otherProps } = this.props;
 这是一个利用es6语法技巧，经过上面的语句，otherProps里面就有this.props中所有的字段除了user.
 假如我们现在不希望某个组件接收user的prop,那么我们就不要直接使用这个组件，而是把这个组件作为参数传递给HocRemoveProp，然后我们把这个函数的返回结果当作组件来使用
 两个高阶组件的使用方法：
+```javascript
 const  newComponent = HocRemoveProp(SampleComponent);
 const  newComponent = HocAddProp(SampleComponent,'1111111');
-
+```
 也可以利用decorator语法糖这样使用
 ```javascript
 import React, { Component } from 'React';
@@ -139,7 +140,7 @@ const colorSytle ={color:'#ff5555'}
 const  newComponent = HocStyleComponent(SampleComponent, colorSytle);
 ```
 
-- 代理方式的生命周期的过程类似于堆栈调用:
+-代理方式的生命周期的过程类似于堆栈调用:
 didmount 一> HOC didmount 一>(HOCs didmount) 一>(HOCs will unmount) 一>HOC will unmount一>unmount
 
 #### 在说继承方式之前先看一个例子
@@ -207,7 +208,7 @@ export default DemoComponent;
 但是最好要限制这样做，可能会让WrappedComponent组件内部状态变得一团糟。建议可以通过重新命名state，以防止混淆。
 
 #### 继承方式之 操纵prop
- ```javascript
+```javascript
 const HOCPropsComponent = (WrappedComponent) =>
   class extends WrappedComponent {
     render() {
@@ -229,7 +230,7 @@ React.cloneElement( element, [props], [...children])
 
 ##### 还有一个方式，在传递props上有着强于高阶组件的优势不用关心命名，
 
- ```javascript
+```javascript
 class addProps extends React.Component {
   render() {
     const newProps = 'uid'
@@ -238,7 +239,7 @@ class addProps extends React.Component {
 } 
 ```
 使用方式
- ```javascript
+```javascript
 <addProps>
 {
    (argument) => <div>{argument}</div>
@@ -246,7 +247,7 @@ class addProps extends React.Component {
 </addProps>
 ```
 感觉很方便，但是每次渲染都会重新定义一个新的函数，如果不想的话就不要定义匿名函数，
- ```javascript
+```javascript
 showUid(argument) {
     return <div>{argument}</div>
 }
@@ -255,7 +256,7 @@ showUid(argument) {
 recompose是一个很流行的库，它提供了很多很有用的高阶组件（小工具），而且也可以优雅的组合它们。
 ###### Step 1 扁平props. 
 我们有这样一个组件
- ```javascript
+```javascript
 const Profile = ({ user }) => ( 
 <div> 
     <div>Username: {user.username}</div>  
@@ -264,7 +265,7 @@ const Profile = ({ user }) => (
  )
 ```
 如果想要改变组件接口来接收单个 prop 而不是整个用户对象，可以用 recompose 提供的高 阶组件 flattenProp 来实现。
- ```javascript
+```javascript
 const Profile = ({ username，age }) => ( 
 <div> 
     <div>Username: {username}</div>  
@@ -274,19 +275,28 @@ const Profile = ({ username，age }) => (
 ```
 const ProfileWithFlattenUser = flattenProp('user')(Profile)；
 现在我们希望同时使用多个高阶组件：一个用于扁平化处理用户 prop，另一个用于重命名用 户对象的单个 prop，不过串联使用函数的做法似乎不太好。 此时 recompose 库提供的 compose 函数就派上用场了。
- ```javascript
+```javascript
 const enhance = compose(
  flattenProp('user'),
  renameProp('username', 'name')
  )
 ```
 然后按照以下方式将它应用于原有组件：
+```javascript
  const EnhancedProfile = enhance(Profile)
+```
 还可以将 compose 函数用 在我们自己的高阶组件上，甚至结合使用都可以：
-const enhance = compose( flattenProp('user'), renameProp('username', 'name'), withInnerWidth )
+```javascript
+const enhance = compose( 
+ flattenProp('user'), 
+ renameProp('username', 'name'), 
+ withInnerWidth 
+)
+```
 ###### Step 2 提取输入表单的State
 
 我们将从Recompose库中使用withStateHandlers高阶组件。 它将允许我们将组件状态与组件本身隔离开来。 我们将使用它为电子邮件，密码和确认密码字段添加表单状态，以及上述字段的事件处理程序。
+
 ```javascript
 import { withStateHandlers, compose } from "recompose";
 
@@ -327,5 +337,6 @@ export default withTextFieldState;
 ```
 withStateHandlers它接受初始状态和包含状态处理程序的对象。调用时，每个状态处理程序将返回新的状态。
 
-好了，很辛苦你能看到这里，关于recompose介绍到此为止，喜欢的朋友可以深入研究recompose其它的方法和源码。
+好了，很辛苦也很感谢你能看到这里，关于recompose介绍到此为止，喜欢的朋友可以深入研究recompose其它的方法和源码。
+
 goodbye
