@@ -1,3 +1,8 @@
+<!--
+ 标题：编写支持SSR的通用组件指南
+ 封面：images/vue-components/cover.png
+ 翻译作者：贺倩倩
+-->
 >原文来自：https://blog.lichter.io/posts/the-guide-to-write-universal-ssr-ready-vue-compon?utm_campaign=Vue.js%20News&utm_medium=email&utm_source=Revue%20newsletter
 
 ### 介绍
@@ -35,25 +40,22 @@ export default {
 
 经验法则：不要在created或beforeCreate中使用带副作用的代码。
 
-3.No data reactivity
+3.No data reactivity(数据隔离性)
 
-这通常不是什么大问题，但你需要知道。服务器端和客户端的值之间数据无关。如果你在服务器端操作data，则根本不会在客户端看到这些变更。
+这通常不是什么大问题，但你需要知道。服务器端和客户端的值之间数据互不影响。如果你在服务器端操作data，则根本不会在客户端看到这些变更。
 
 ### 指令（Directives）
 
 自定义Vue指令经常用于操纵DOM（例如，在滚动时显示元素或使元素固定到特定位置）。我们知道这在服务器端不起作用。那有什么解决办法呢？
 
-嗯，最简单的方法是：不要使用Directives，使用component。我使用VueNextLevelScroll或vue-if-bot等组件做到了这一点，因为它更容易使它们普遍可用，并且它们也可以进行代码分割！通过选择组件作为抽象，您不会丢失任何东西。
+嗯，最简单的方法是：不要使用Directives，使用component。我使用VueNextLevelScroll或vue-if-bot等组件做到了这一点，因为它更容易使它们普遍可用，并且它们也可以进行代码分割！使用components抽离，你不会失去任何东西。
 
-如果你确实想使用指令，则可以添加此指令的服务器端等效项。在Nuxt中，可以通过在nuxt.config.js中的this.options.render.bundleRenderer对象中设置指令对象来实现。一个好的（但很复杂的）例子是官方的v-model ssr指令。
+如果你确实想使用指令，则可以在服务器端添加相同效果的一个指令。在Nuxt中，可以通过在nuxt.config.js中的this.options.render.bundleRenderer对象中设置指令对象来实现。一个好的（但很复杂的）例子是官方的v-model ssr指令。
 
-注意：请注意以kebab-case（make-red而不是makeRed）传递你的指令。否则，他们将无法被识别！这是vue-server-renderer中的错误（有关详细信息，请参阅此问题）。
-
-匹配示例将向您展示为什么您肯定应该使用组件或服务器端指令。您是否注意到仅客户端指令示例的闪烁？对于使用此页面作为入口点的所有用户来说，这一点都很明显。
+注意：请注意以kebab-case（如：make-red而不是makeRed）传递你的指令。否则，他们将无法被识别！这是vue-server-renderer中的错误（有关详细信息，请看官方文档）。
 
 ### 总结
 
 使用特定平台的API时要特别小心，尤其是window和document。
-请记住，created和beforeCreate是在服务器端和客户端都会执行的。确保写的时候没有副作用，没有window，服务器端数据变更不会表现在客服端。
-使用指令并不总是最好的抽离方法。但是如果你确实使用它们，请提供服务器端指令
+请记住，created和beforeCreate是在服务器端和客户端都会执行的。确保写的时候没有副作用，没有window，服务器端数据变更不会表现在客服端。使用指令并不总是最好的抽离方法。但是如果你确实使用它们，请提供服务器端指令
 如果你想进一步阅读，我建议你阅读官方的vue-ssr-docs！
