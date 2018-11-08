@@ -20,11 +20,11 @@ console.log('4');
 
 面试官：为什么是这个答案？
 
-我：首先打印 `1`,遇到定时器，等待时间为0，所以打印 `2`，又遇到一个定时器，等待时间为2秒，所以先打印`4`,两秒后打印`3`。
+我：首先打印 `1`，遇到定时器，等待时间为0，所以打印 `2`，又遇到一个定时器，等待时间为2秒，所以先打印`4`，两秒后打印`3`。
 
 然后就......
 
-与这段代码相关的知识点就是**JavaScript事件循环机制**，下面将从有关的基本概念出发，先了解了相关的概念，才能更好的理解事件循环的机制原理。
+与这段代码相关的知识点就是**JavaScript事件循环机制**，下面将从有关的基本概念出发，先了解了相关的概念，才能更好的理解事件循环的机制原理。以下都是自己的个人理解，如有不正确的地方，欢迎大家在评论区拍砖。
 
 
 ### 线程与进程
@@ -86,11 +86,11 @@ console.log('4');
 > - 比如`setTimeout`定时器计数结束，`ajax`等异步请求成功并触发回调函数，或者用户触发点击事件时，该线程会将整装待发的事件依次加入到任务队列的队尾，等待`JS引擎线程`的执行。
 
 > **定时器触发线程**
-> - 顾名思义，负责执行异步定时器一类的函数的线程，如：`setTimeout,setInterval`。
+> - 顾名思义，负责执行异步定时器一类的函数的线程，如：`setTimeout，setInterval`。
 > - 主线程依次执行代码时，遇到定时器，会将定时器交给该线程处理，当计数完毕后，事件触发线程会将计数完毕后的事件加入到任务队列的尾部，等待JS引擎线程执行。
 
 > **HTTP请求线程**
-> - 顾名思义，负责执行异步请求一类的函数的线程，如：`Promise,anxios，ajax`等。
+> - 顾名思义，负责执行异步请求一类的函数的线程，如：`Promise，anxios，ajax`等。
 > - 主线程依次执行代码时，遇到异步请求，会将函数交给该线程处理，当监听到状态码变更，如果有回调函数，事件触发线程会将回调函数加入到任务队列的尾部，等待JS引擎线程执行。
 
 > **多个线程之间配合工作，各司其职。**
@@ -141,7 +141,7 @@ fn2();
 console.log(5);
 ```
 
-<img src="./images/入栈出栈.png" />
+<img src="./images/入栈和出栈.png" />
 
 所以上面代码运行的结果为：1,3,2,5,4。
 
@@ -198,8 +198,8 @@ setTimeout(function () {
 console.log('4');
 ```
 - 从全局任务入口，首先打印日志 `1`，
-- 遇到宏任务`setTimeout`，交给异步处理模块，我们暂且先记为`setTimeout 1`,
-- 再次遇到宏任务`setTimeout`，交给异步处理模块，我们暂且先记为`setTimeout 2`,
+- 遇到宏任务`setTimeout`，交给异步处理模块，我们暂且先记为`setTimeout 1`，
+- 再次遇到宏任务`setTimeout`，交给异步处理模块，我们暂且先记为`setTimeout 2`，
 - 顺序执行，打印日志 `4`，
 - 此时同步任务已执行完毕，读取宏任务队列的任务，先执行`setTimeout 1`的回调函数，因为定时器的等待时间为`0`秒，所以会直接输出`2`，但是`W3C`在`HTML`标准中规定，规定要求`setTimeout`中低于`4ms`的时间间隔算为`4ms`，
 - 由于浏览器在执行以上三步时，并未耗时很久，所以当宏任务`setTimeout 1`执行完时，`setTimeout 2`的等待时间并未结束，所以在`2秒`后打印日志`3`，实际上并未等待2秒。
@@ -211,10 +211,10 @@ setTimeout(function () {
 	Promise.resolve().then(function () {
 	    console.log(2);
 	});
-},0);
+}, 0);
 setTimeout(function () {
     console.log(3);
-},0);
+}, 0);
 Promise.resolve().then(function () {
     console.log(4);
 });
@@ -254,4 +254,42 @@ console.log(5);
 
 <img src="./images/5.png" />
 
-至此，我们就理解了浏览器中的事件循环到底是如何执行的了。再回头看看那道笔试题，长吁一声，“原来如此”！
+最后我们是我们的boss，欢迎大家在评论区留言写出自己心中的那个正确答案。
+
+```
+console.log('1');
+setTimeout(function() {
+    console.log('2');
+    new Promise(function(resolve) {
+        console.log('3');
+        resolve();
+    }).then(function() {
+        console.log('4')
+    })
+})
+new Promise(function(resolve) {
+		console.log('5');
+		resolve();
+}).then(function() {
+		console.log('6')
+})
+setTimeout(function() {
+    console.log('7');
+})
+setTimeout(function() {
+    console.log('8');
+    new Promise(function(resolve) {
+        console.log('9');
+        resolve();
+    }).then(function() {
+        console.log('10')
+    })
+})
+new Promise(function(resolve) {
+    console.log('11');
+    resolve();
+}).then(function() {
+    console.log('12')
+})
+console.log('13');
+```
