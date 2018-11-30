@@ -29,7 +29,7 @@
 
 ![](https://i.imgur.com/Zuiwd3o.png)
 
-	git clone https://github.com/****.git 
+	git clone https://github.com/****.git
 
 clone项目到本地之后，我们可以看到目录下有一个叫.git的隐藏文件
 ![](https://i.imgur.com/L3aCJHm.png)
@@ -41,7 +41,7 @@ clone下来的项目我们就可以正常开发了，当然我们也可以在本
 	git init
 命令执行的目录下就有了一个.git文件夹，我们在创建了一个本地仓库，接着与远程仓库进行关联：
 
-	git remote add origin https://github.com/****.git 
+	git remote add origin https://github.com/****.git
 
 ## 工作目录 暂存区 版本库 远程仓库
 
@@ -121,7 +121,7 @@ untracked files表示未追踪的文件，就是新创建的src文件夹，未�
 
 	git commit //将暂存区文件提交到本地版本库中
 
-输入git commit回车之后，因为commit需要编辑提交信息，所以会默认进入vim命令编辑模式，这时我们输入小写的i可以切换到插入模式，然后输入这次提交的备注信息，输入完后，按ESC返回命令模式，输入ZZ或者wq保存，一次commit提交就完成了。
+输入git commit回车之后，因为commit需要编辑提交信息，所以会默认进入vim命令编辑模式，这时我们输入小写的i可以切换到插入模式，然后输入这次提交的备注信息，输入完后，按ESC返回命令模式，输入ZZ或者`:wq`保存，一次commit提交就完成了。
 
 #### git log ####
 
@@ -138,7 +138,7 @@ untracked files表示未追踪的文件，就是新创建的src文件夹，未�
 	git show commit的编码 //查看该commit具体的改动
 
 要看最新 commit ，直接输入 git show ；要看指定 commit ，输入 git show commit的引用（例如HEAD）或它的SHA-1编码
-	
+
 #### git push ####
 
 	git push //将本地仓库推送到远程仓库
@@ -241,7 +241,7 @@ commit信息这里就粗略的说到这吧。接下来接着说说branch
 	git checkout 分支名 //切换分支
 
 以上两部可以合并
-	
+
 	git checkout -b 新的分支名 //创建并切换到新的分支
 
 ![](https://i.imgur.com/626TlIc.png)
@@ -351,7 +351,7 @@ src/test.js出现了 "merge conflict"合并冲突，自动合并失败，要求 
 关于rebase，只要记住，它是修改需要**被合并**的分支的基础点，同时与merge相反，需要在**被合并**的分支上操作的指令
 
 突然的结尾
-- 
+-
 .......
 
 抱歉又写多了，认真随意的在这里加个分割线，分个上下系列吧= =
