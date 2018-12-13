@@ -32,7 +32,8 @@ function render() {
 
 ### 1.1 虚拟dom
 上文中提到视图是数据的表现，当数据改变时可以清空所有的dom节点然后重新渲染视图，缺点是可能造成了很大的浪费，因为大部分的dom节点可能并没有变，比如渲染一个列表，可能只是插入了一条数据：
-![vnode](images/diff.PNG)  
+
+![vnode](images/diff.png)  
 
 那么有没有方法是在渲染之前先进行比较，然后只改变更新的dom节点？虚拟dom正好可以做这件事，虚拟dom是真实dom节点的数据结构映射，只要给出了一定的规范，就可以利用虚拟dom表示真实的dom。举个例子，更新前的列表可以这么表示：
 ```html
@@ -62,7 +63,8 @@ function render() {
 
 ### 1.2 组件化
 谈到组件化首先想到的是代码复用，但组件化不止如此。虚拟dom只是优化了数据到视图的映射方式，但是当数据改变时，应该选择什么样的范围进行diff其并没有给出。假设我们的页面结构如下：
-![vnode](images/page.PNG) 
+
+![vnode](images/page.png) 
 
 想象一下，假如仅仅因为list插入了一条数据就对整个视图diff，即使js引擎很快但这样的效率无疑也是很低的，我们更希望的是将数据拆分，每次数据改变只对一个可控的范围进行diff，而其余的部分不受影响。组件化刚好解决了这样的问题，我们可以将页面拆分为如下：
 ```html
@@ -113,7 +115,8 @@ React.createElement(
 );
 ```
 可以猜测，`React.createElement`就是构造虚拟dom的方法，事实上上例会返回一个类似如下的虚拟dom，然后根据虚拟dom深度优先构建真实dom树
-![vnode](images/vnode.PNG)  
+
+![vnode](images/vnode.png)  
 
 #### 2.1.2 更新渲染
 更新渲染时首先会对更新前后的虚拟dom进行diff，然后将差异patch到真实dom即可完成组件的更新。虚拟dom进行diff时会根据类型的不同采取不同的策略，笔者根据虚拟dom`nodeName`类型的不同将其划分为两种：
@@ -123,10 +126,12 @@ React.createElement(
 组件标签对应的虚拟dom  
 
 参考上面例子，`html vnode`对应：
-![htmlVnode](images/htmlVnode.PNG)
+
+![htmlVnode](images/htmlVnode.png)
 
 `component vnode`对应：
-![htmlVnode](images/componentVnode.PNG)
+
+![htmlVnode](images/componentVnode.png)
 
 `html vnode`的更新相对简单，可以简单的理解为对比虚拟dom的nodeName，相同表明真实dom可以复用，只更新属性和子节点即可，不同则创建新的dom并删除掉旧的dom节点。  
 
