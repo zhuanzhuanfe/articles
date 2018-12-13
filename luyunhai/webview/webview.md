@@ -161,19 +161,55 @@ NSURL *url = [NSURL URLWithString:@"https://m.zhuanzhuan.com"];
 
 ![](./images/diff.png)
 
+WKWebView 的代理协议为 WKNavigationDelegate，对比 UIWebDelegate 首先跳转询问，就是载入 URL之前的一次调用，询问开发者是否下载并载入当前 URL，UIWebView 只有一次询问，就是请求之前的询问，而 WKWebView 在 URL 下载完毕之后还会发一次询问，让开发者根据服务器返回的 Web 内容再次做一次确定。
+
 
 #### 四、任重而道远
 
-###### 1. WKWebView的痛点
+前面说到WKWebView这么赞，其实开发中也有一些痛点。不同于UIWebView，WKWebView很多交互都是异步的，所以在很大程度上，在和m页通信的时候，提高了开发成本。
 
-- cookie
-- 缓存
-- 默认跳转协议
+###### 1. cookie
 
-###### 2. 性能的优化
+首先就是cookie问题，这个目前我认为也是WKWebView在业界的一个坑。之前出现过一个问题，就是在IOS登陆完成后，马上进入m页，会有登录态的cookie获取不到的问题。这个问题在UIWebView中是不存在的。
 
-- webview的初始化
-- 离线包等方案
+经过调研发现，主要问题是UIWebView对cookie是通过**NSHTTPCookieStorage**来统一处理的，服务端响应时写入，然后在下次请求时，在请求头里会带上相应的cookie，来做到m页和native共享cookie的值。
+
+但是在WKWebView中，则不然。它虽然也会对**NSHTTPCookieStorage**来写入cookie，但却不是实时存储的。而且从实际的测试中发现，不同的IOS版本，延迟的时间还不一样，无意对m页的开发者是一种挑战。同样，发起请求时，也不是实时读取，无法做到和native同步，导致页面逻辑出错。
+
+针对这个问题，目前我们转转的解决方法是需要客户端手动干预一下cookie的存储。将服务响应的cookie，持久化到本地，在下次webview启动时，读取本地的cookie值，手动再去通过native往webview写入。大致流程如下图：
+
+![](./images/cookie.png)
+
+当然这也不是很完美的解决方案，因为偶尔还有spa的页面路由切换的时候丢失cookie的问题。cookie的问题还需要我们和客户端的同学继续去探索解决。在这里，如果大家有什么好的建议和处理方法欢迎留言，大家一起学习进步。
+
+###### 2. 缓存
+
+除了cookie以外，WKWebView的缓存问题，最近我们也在关注。由于WKWebView内部默认使用一套缓存机制，开发者可以操作的权限会有限制，特别是IOS8版本，也许是当时刚诞生WKWebView的缘故，还很不完善，根本没法操作（当然相信IOS8很快会退出历史舞台）。对于一些m页的静态资源，偶尔会出现缓存不更新的情况，着实让人头疼。
+
+但在IOS 9 之后，系统提供了缓存管理的接口 **WKWebsiteDataStore**。
+
+```
+// RemoveCache
+NSSet *websiteTypes = [NSSet setWithArray:@[
+                                            WKWebsiteDataTypeDiskCache,
+                                            WKWebsiteDataTypeMemoryCache]];
+NSDate *date = [NSDate dateWithTimeIntervalSince1970:0];
+[[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteTypes
+                                           modifiedSince:date
+                                       completionHandler:^{
+}];
+```
+
+至于IOS8，就只能通过删除文件来解决了，一般WKWebView的缓存数据会存储在这个目录里：
+> ~/Library/Caches/BundleID/WebKit/
+
+可通过删除该目录来实现清理缓存。
+
+---
+
+另外，以上我们说的痛点以外，还有webview的通病，就是我们每次首次打开m页时，都要有webview初始化的过程，那么如何减少初始化webview的时间，也是我们可以提高页面打开速度的一个重要环节。
+
+当然，为了提高页面的打开速度，咱们m页也可以跟native去结合，做一些离线方案，目前转转内部也有一些离线页面的项目有上线，今天就不在此展开。
 
 
 讲到这里，我们也进入尾声了，也许不久的将来各种新兴的技术会掩盖一些webview的光环，像react-native、小程序、安卓的轻应用开发等等，但是不可否认的是，webview不会轻易退出历史舞台，我们会把交互做的更好，我们也有情怀。哪有什么岁月静好，只不过有人负重前行……
