@@ -41,13 +41,13 @@ console.log(bridge.getNetInfomation());
     在IOS中，主要使用WebViewJavascriptBridge来注册，可以参考[Github WebViewJavascriptBridge](https://github.com/marcuswestin/WebViewJavascriptBridge)
 
 ```
-    jsBridge = [WebViewJavascriptBridge bridgeForWebView:webView];
+jsBridge = [WebViewJavascriptBridge bridgeForWebView:webView];
 
-    ...
+...
 
-    [jsBridge registerHandler:@"scanClick" handler:^(id data, WVJBResponseCallback responseCallback) {
-        // to do
-    }];
+[jsBridge registerHandler:@"scanClick" handler:^(id data, WVJBResponseCallback responseCallback) {
+    // to do
+}];
 ```
 
 - Android
@@ -123,9 +123,40 @@ public boolean shouldOverrideUrlLoading(WebView view, String url){
 
     在Android端内，会通过schema或者对应的Android包名，找到唯一的app。然后进入到此app的一个入口载体页面中，执行主类的方法。通过此方法，同样会接收到一个schema的参数，再去解析这个schema，最终定向到固定的App内的某个页面，从而完成交互。
 
+    在Android端内，会稍微麻烦一些，在外部的m页，会发起一个schema的伪协议链接，系统会去根据这个schema去检索，需要被拉起的App需要有一个配置文件，大致如下：
+
 ```
-    // todo
+<activity
+    android:name=".activity.StartActivity"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="zhuanzhuan"/>
+    </intent-filter>
+</activity>
 ```
+
+    以上面的代码为例，在上面配置中scheme为zhuanzhuan，只要是 **"zhuanzhuan://"** 开头的schema的链接都会调起配置该schema的Activity(类似上面代码的 **StartActivity**)，此Activity会对这个 **schema url** 做处理，例如：
+
+```
+public class StartActivity extends TempBaseActivity {
+    Intent intent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        intent = getIntent();
+        Uri uri = intent.getData();
+    }
+}
+```
+
+    例如上面的代码，可以在此Activity中，通过 **intent** 中的 **getData** 方法，获取到传入的schema的相关信息，如下图：
+
+![](./images/schema.png)
 
 这也是我们在第三方app内，可以调起自己app的原理。当然现在市场上一些app，为了怕有流量流失，会对schema进行限制，只有plist白名单里的schema才能对应拉起，否则会被直接过滤掉。比如我们的wx爸爸，开通白名单后，才可以使用更多的jsApiList，通过schema的拉起就是其中之一，在此不做赘述…… :）
 
