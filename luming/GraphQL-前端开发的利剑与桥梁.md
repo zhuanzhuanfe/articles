@@ -10,7 +10,7 @@
 举个栗子：
 在一个商品详情页，当我们需要获取商品详情时，服务端会给前端一个接口，例如：
 
-`https://www.example.com/getInfoById?infoId=000000。`
+`https://www.example.com/getInfoById?infoId=000000`
 
 当前端请求接口时，会返回给一个固定格式的数据，例如：
 ```
@@ -72,7 +72,7 @@
         }`
       }
     }
-  },
+  }
 
 ```
 
@@ -98,7 +98,10 @@ exports.graphql = {
   package: 'egg-graphql',
 }; 
 //开启 cros 跨域访问
-exports.cors = { enable: true, package: 'egg-cors' }
+exports.cors = { 
+    enable: true, 
+    package: 'egg-cors'
+}
 ```
 ##### 3.配置graphql路由和跨域
 ```
@@ -178,18 +181,18 @@ schema.graphql中需要定义总入口中提及的Goods对象：
 ```
 # 商品
 type Goods {
-# 流水号
-infoId: ID!
-# 商品标题
-title:String!,
-# 商品内容
-content:'String!,
-#商品特点
-special:'String!,
-#商品价格
-price:'nt!,
-#商品图片
-image:'String!,
+    # 流水号
+    infoId: ID!
+    # 商品标题
+    title:String!,
+    # 商品内容
+    content:'String!,
+    #商品特点
+    special:'String!,
+    #商品价格
+    price:'nt!,
+    #商品图片
+    image:'String!,
 }
 ```
 graphql自带一组默认标量类型，包括Int，Float，String，Boolean，ID。在定义字段时需要注明类型，这也是graphql的特点之一，是支持强类型的。如果非空，就在类型后面跟上一个!号。graphql还包括枚举类型，列表和自定义类型，具体可以查看相关文档。
@@ -248,7 +251,7 @@ module.exports = GoodsService
 
 ### 前端
 
-技术选型我们会使用vue配合Apollo完成前端
+我们会使用vue配合Apollo完成前端搭建。
 
 
 ##### 1 安装依赖包
