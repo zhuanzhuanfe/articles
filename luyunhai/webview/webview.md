@@ -138,7 +138,7 @@ public boolean shouldOverrideUrlLoading(WebView view, String url){
 </activity>
 ```
 
-    以上面的代码为例，在上面配置中scheme为zhuanzhuan，只要是 **"zhuanzhuan://"** 开头的schema的链接都会调起配置该schema的Activity(类似上面代码的 **StartActivity**)，此Activity会对这个 **schema url** 做处理，例如：
+以上面的代码为例，在上面配置中scheme为zhuanzhuan，只要是 **"zhuanzhuan://"** 开头的schema的链接都会调起配置该schema的Activity(类似上面代码的 **StartActivity**)，此Activity会对这个 **schema url** 做处理，例如：
 
 ```
 public class StartActivity extends TempBaseActivity {
@@ -154,7 +154,7 @@ public class StartActivity extends TempBaseActivity {
 }
 ```
 
-    例如上面的代码，可以在此Activity中，通过 **intent** 中的 **getData** 方法，获取到传入的schema的相关信息，如下图：
+例如上面的代码，可以在此Activity中，通过 **intent** 中的 **getData** 方法，获取到传入的schema的相关信息，如下图：
 
 ![](./images/schema.png)
 
