@@ -102,7 +102,7 @@ public boolean shouldOverrideUrlLoading(WebView view, String url){
 
 当然，刚才我们提到通过schema的方式可以进行跨端交互，那具体如何操作呢？
 
-其实对于JavaScript，在webview里基本是一样的，也是发起一个schema的请求，只不过在native测会有些许变化。
+其实对于JavaScript，在webview里基本是一样的，也是发起一个schema的请求，只不过在native侧会有些许变化。
 
 首先，给大家普及一个小知识，就是在natvie中（包括IOS和Android），会通过schema找到相匹配的App。其中IOS不可以重复，就像appId一样；安卓可以重复，遇到重复情况时，会弹窗让用户选择其中之一。
 
