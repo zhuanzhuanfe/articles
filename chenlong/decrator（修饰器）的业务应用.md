@@ -11,7 +11,7 @@ ES6问世的时间也不短了，而且很多时候对ES6所谓的“熟练应�
 - 数组遍历api
 
 (当然也可能是我用的比较简单)
- 
+
 最近也是看了很多大神写的代码，确实学到了很多东西，这也让我下定决心要更深层次的应用ES6
 
 本次我们介绍decrator（修饰器）在业务中的应用
@@ -29,7 +29,7 @@ const animalDecorator = (target) => {
   target.isAnimal = true
   target.prototype.nickname = 'nimo'
 };
- 
+
 @animalDecorator
 class Cat {
  ...
@@ -55,7 +55,7 @@ const log = (target, key, descriptor) => {
   }
   return descriptor
 };
- 
+
 class Util {
 
   @log
@@ -80,7 +80,7 @@ const log = (name) => {
     return descriptor
   }
 };
- 
+
 class Util {
 
   @log('forTest')
