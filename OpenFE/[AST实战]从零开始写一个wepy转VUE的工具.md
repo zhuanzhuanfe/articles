@@ -19,6 +19,7 @@ var a = 1;
 ![](https://user-gold-cdn.xitu.io/2019/3/12/169715c44101532b?w=493&h=466&f=png&s=12890)
 
 这句话从语法层面分析是一次变量声明和赋值，所以父节点是一个 type 为 VariableDeclaration（变量声明）的类型节点，声明的内容又包括两部分，标识符：a 和 初始值：1
+
 ![](https://user-gold-cdn.xitu.io/2019/3/12/169716164545ddef?w=380&h=556&f=png&s=13681)
 
 这就是一个简单的 AST 转换，你可以通过 [astexplorer](https://astexplorer.net/)可视化的测试更多代码。
