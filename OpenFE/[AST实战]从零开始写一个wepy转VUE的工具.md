@@ -232,7 +232,7 @@ convert(`${cwdPath}/demo.wpy`)
 在 fileHandle 函数中，我们可以得到代码的文本内容，首先我们将对其进行 XML 解析，把 template、css、JavaScript 拆分成三部分。
 有同学可能问为什么不直接正则匹配出来，因为开发者的代码可能有很多风格，比如有两部分 style，可能有很多意外情况是使用正则考虑不到的，这也是使用 AST 的意义。
 
-```
+``` javascript
 //首先需要完成Xml解析及路径定义：
 
 //初始化一个Xml解析器
