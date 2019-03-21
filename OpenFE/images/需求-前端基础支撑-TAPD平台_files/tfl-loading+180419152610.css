@@ -1,0 +1,146 @@
+/* 滚动条 */
+.progressjs-inner {
+    width: 0;
+}
+.progressjs-progress {
+    z-index: 9999999;
+}
+
+/* blue theme, like iOS 7 progress bar */
+.progressjs-theme-lego .progressjs-inner {
+    height: 4px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    /*background-color: #3498db;*/
+    background-color: #efd25c;
+    margin-top: -4px;
+}
+.progressjs-theme-lego.progressjs-end {
+    -webkit-transition: opacity 0.2s ease-out;
+    -moz-transition: opacity 0.2s ease-out;
+    -o-transition: opacity 0.2s ease-out;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+.progressjs-theme-lego .progressjs-percent {
+    display: none;
+}
+
+/* blue theme with overlay layer, no percent bar */
+.progressjs-theme-legoOverlay {
+    background-color: white;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+.progressjs-theme-legoOverlay .progressjs-inner {
+    height: 100%;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    background-color: #3498db;
+}
+.progressjs-theme-legoOverlay.progressjs-end {
+    opacity: 0 !important;
+}
+.progressjs-theme-legoOverlay .progressjs-percent {
+    display: none;
+}
+
+.progressjs-theme-legoOverlayRadius {
+    background-color: white;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    border-radius: 5px;
+}
+.progressjs-theme-legoOverlayRadius .progressjs-inner {
+    height: 100%;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    background-color: #3498db;
+    border-radius: 5px;
+}
+.progressjs-theme-legoOverlayRadius.progressjs-end {
+    opacity: 0 !important;
+}
+.progressjs-theme-legoOverlayRadius .progressjs-percent {
+    display: none;
+}
+
+/* Blue theme with border radius and overlay layer */
+.progressjs-theme-legoOverlayRadiusHalfOpacity {
+    background-color: white;
+    opacity: 0.5;
+   -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    border-radius: 5px;
+}
+.progressjs-theme-legoOverlayRadiusHalfOpacity .progressjs-inner {
+    height: 100%;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    background-color: #3498db;
+    border-radius: 5px;
+}
+.progressjs-theme-legoOverlayRadiusHalfOpacity.progressjs-end {
+    opacity: 0 !important;
+}
+.progressjs-theme-legoOverlayRadiusHalfOpacity .progressjs-percent {
+    display: none;
+}
+
+/* Blue theme with border radius, overlay layer and percent bar */
+.progressjs-theme-legoOverlayRadiusWithPercentBar {
+    background-color: white;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    border-radius: 5px;
+}
+.progressjs-theme-legoOverlayRadiusWithPercentBar .progressjs-inner {
+    height: 100%;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    background-color: #3498db;
+    border-radius: 5px;
+}
+.progressjs-theme-legoOverlayRadiusWithPercentBar.progressjs-end {
+    opacity: 0 !important;
+}
+.progressjs-theme-legoOverlayRadiusWithPercentBar .progressjs-percent {
+    width: 70px;
+    text-align: center;
+    height: 40px;
+    position: absolute;
+    right: 50%;
+    margin-right: -35px;
+    top: 50%;
+    margin-top: -20px;
+    font-size: 30px;
+    opacity: .5;
+}
+
+.special-progressjs-inner{
+	height: 4px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    /*background-color: #3498db;*/
+    background-color: white;
+}

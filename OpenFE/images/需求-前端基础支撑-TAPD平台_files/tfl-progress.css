@@ -1,0 +1,56 @@
+
+/*
+*--------------------------------------------------------------------------------
+ 进度条
+*--------------------------------------------------------------------------------
+*/
+.progress:after{visibility:hidden; display:block; font-size:0; content:"."; clear:both; height:0}
+.progress{zoom:1; margin-bottom:10px}
+.progress .bar-bg{float:left; width:200px; overflow: hidden; overflow:visible\9; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.progress .bar{height:8px; width:0; color: #ffffff; font-size: 11px; text-align: center;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+}
+.progress-gray .bar-bg{border:1px solid #ccc; background-color:#eee}
+.progress-red .bar-bg{border:1px solid #a90808;}
+.progress-orange .bar-bg{border:1px solid #a96507;}
+.progress-lightgreen .bar-bg{border:1px solid #9aa908;}
+.progress-green .bar-bg{border:1px solid #80941c}
+.progress-darkgreen .bar-bg{border:1px solid #5f842c;}
+.progress-gray .bar{background-color: #dfdfdf}
+.progress .percent {float:left; margin-left:5px; margin-top:-2px; font-size:11px; line-height:13px;}
+.progress-red .percent {color:#a90808}
+.progress-orange .percent {color:#a96507}
+.progress-lightgreen .percent {color:#9aa908}
+.progress-green .percent {color:#80941c}
+.progress-darkgreen .percent {color:#5f842c}
+.progress-red .bar{
+  background-color: #f20404; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f20404), to(#ce0808));
+  background-image: -webkit-linear-gradient(top, #f20404, #ce0808); background-image: -moz-linear-gradient(top, #f20404, #ce0808);
+  background-image: -o-linear-gradient(top, #f20404, #ce0808); background-image: linear-gradient(top, #f20404, #ce0808);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f20404', endColorstr='#ce0808', GradientType=0);
+}
+.progress-orange .bar{
+  background-color: #f28f03; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f28f03), to(#ce7b08));
+  background-image: -webkit-linear-gradient(top, #f28f03, #ce7b08); background-image: -moz-linear-gradient(top, #f28f03, #ce7b08);
+  background-image: -o-linear-gradient(top, #f28f03, #ce7b08); background-image: linear-gradient(top, #f28f03, #ce7b08);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f28f03', endColorstr='#ce7b08', GradientType=0);
+}
+.progress-lightgreen .bar{
+  background-color: #c0d209; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ddf203), to(#bcce08));
+  background-image: -webkit-linear-gradient(top, #ddf203, #bcce08); background-image: -moz-linear-gradient(top, #ddf203, #bcce08);
+  background-image: -o-linear-gradient(top, #ddf203, #bcce08); background-image: linear-gradient(top, #ddf203, #bcce08);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddf203', endColorstr='#bcce08', GradientType=0);
+}
+.progress-green .bar{
+  background-color: #b5d421; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b5d421), to(#9bb520));
+  background-image: -webkit-linear-gradient(top, #b5d421, #9bb520); background-image: -moz-linear-gradient(top, #b5d421, #9bb520);
+  background-image: -o-linear-gradient(top, #b5d421, #9bb520); background-image: linear-gradient(top, #b5d421, #9bb520);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5d421', endColorstr='#9bb520', GradientType=0);
+}
+.progress-darkgreen .bar{
+  background-color: #85bc39; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#85bc39), to(#73a134));
+  background-image: -webkit-linear-gradient(top, #85bc39, #73a134); background-image: -moz-linear-gradient(top, #85bc39, #73a134);
+  background-image: -o-linear-gradient(top, #85bc39, #73a134); background-image: linear-gradient(top, #85bc39, #73a134);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#85bc39', endColorstr='#73a134', GradientType=0);
+}
