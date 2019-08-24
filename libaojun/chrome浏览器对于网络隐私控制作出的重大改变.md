@@ -11,7 +11,7 @@
 
 3  最终将跨站点cookie传输只能在HTTPS域名起作用。
 
-4 chrome浏览器会采取措施限制各网站获取浏览器的除cookie信息之外的信息。这些信息是由UA，referer请求头等信息组成的。也包含了大量的用户独特信息。chrome形象地称之为“浏览器指纹“   
+4 chrome浏览器会采取措施限制各网站获取浏览器的除cookie信息之外的信息。这些信息是由UA，referer请求头等信息组成的。也包含了大量的用户独特信息。chrome形象地称之为“浏览器指纹“
 
 上述的几条举措中，除最后一条外，全部都是针对cookie的控制方式作出的改变，下面我们详细解读一下这些举措背后的技术原理，以及chrome 作出上述改变的缘由。
 
@@ -152,7 +152,7 @@ Set-Cookie: key=value; HttpOnly; SameSite=Strict
 
 > 1:  https://chinagdg.org/2019/05/improving-privacy-and-security-on-the-web/
 
-> 2:  https://techcrunch.com/2019/05/07/chrome-privacy-security-changes/  
+> 2:  https://techcrunch.com/2019/05/07/chrome-privacy-security-changes/
 
 > 3: https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies
 
