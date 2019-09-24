@@ -1,4 +1,4 @@
-# css @supports实现的级联网页设计
+# CSS @supports实现的级联网页设计
 
 > 翻译原文： https://24ways.org/2017/cascading-web-design
 

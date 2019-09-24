@@ -85,7 +85,7 @@ server.get('*', (req, res) => {
 #### 2）构建项目
 **（1）通过webpack 来打包我们的 Vue 应用程序**
 - 通常 Vue 应用程序是由 webpack 和 vue-loader 构建，并且许多 webpack 特定功能不能直接在 Node.js 中运行（例如通过 file-loader 导入文件，通过 css-loader 导入 CSS）。
-> 
+>
 
 - 尽管 Node.js 最新版本能够完全支持 ES2015 特性，我们还是需要转译客户端代码以适应老版浏览器。这也会涉及到构建步骤。
 
@@ -184,7 +184,7 @@ export default context => {
                 }
             })).then(() => {
                 // 在所有预取钩子 resolve后， store已经填充渲染应用程序所需的状态
-                // 将状态附加到上下文 
+                // 将状态附加到上下文
                 // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
                 context.state = store.state
 
