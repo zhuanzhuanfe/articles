@@ -127,10 +127,10 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 #### 代码层面
 
-* 通过isSendMail=1标签控制
-* 控制isSendMail=1的频率
+* 通过`isSendMail=1`标签控制
+* 控制`isSendMail=1`的频率
 
-例如，同一个用户只要页面白屏错误，和其他同类型错误在页面浏览期间超过3次也设置isSendMail=1
+例如，同一个用户只要页面白屏错误，和其他同类型错误在页面浏览期间超过3次也设置`isSendMail=1`
 
 <figure class="half">
 	<img src="./images/10.png" width="45%" />
