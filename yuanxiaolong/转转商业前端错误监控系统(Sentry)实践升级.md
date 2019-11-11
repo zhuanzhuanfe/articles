@@ -33,8 +33,8 @@
 ### 以攻代守（主动上报）
 侵入项目，虽然前端实际工作中一直以对业务无侵入为研究方向。但在实际的业务中偶尔的侵入业务去做一些处理是很有必要的，给业务带来的收益也是可关的，我们能做的就是尽量少的侵入业务代码，导致污染。以下是我们对项目的改造策略，以`react`为例，vue也是类似方案：
 
-<div align="center">
-	<img src="./images/2.png" width="50%" >
+<div>
+	<img src="./images/2.png" width="60%" >
 </div>
 
 #### 页面改造
@@ -44,11 +44,10 @@
 
 组件错误捕获 & 页面错误捕获：
 
-<div align="center">
-	<div style="float:left; width: 50%;"><img src="./images/4.png" /></div>
-	<div style="float:left; width: 50%;"> <img src="./images/5.png" /></div>
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half">
+	<img src="./images/4.png" width="50%" />
+	<img src="./images/5.png" width="40%" />
+</figure>
 
 以上方案不止能有效捕获错误，区分错误级别，还有有效防止子组件错误影响整体页面渲染，导致白屏。
 
@@ -58,30 +57,25 @@
 
 监控接口异常状态，即时获取接口错误信息，辅助后端监控及日志排查。
 
-<div align="center">
-	<div style="float:left; width: 50%;"><img src="./images/7.png" /></div>
-	<div style="float:left; width: 50%;"><img src="./images/6.png" /></div>
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half">
+	<img src="./images/7.png" width="45%" />
+	<img src="./images/6.png" width="45%" />
+</figure>
 
 ### 多维度标签 & 辅助查错信息 & 自定义错误分组规则
 快速定位，排错，及评估影响范围
 
-<div align="center">
-	<img src="./images/8.png" width="75%" >
-</div>
+<center>
+	<img src="./images/8.png" width="60%" >
+</center>
 
 例如：快速查看错误根据`tags`的分布
 
-<div align="center">
-	<div style="float:left; width: 50%">
-		<div style="float:left; width: 80%;"><img src="./images/26.png" width="80%" /></div>
-		<div style="float:left; width: 80%;"><img src="./images/27.png" /></div>
-		<div style="width:100%;height:0;clear:both;"></div>
-	</div>
-	<div style="float:left; width: 50%;"><img src="./images/29.png" /></div>
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half">
+	<img src="./images/26.png" width="30%" />
+	<img src="./images/27.png" width="30%" />
+	<img src="./images/29.png" width="35%" />
+</figure>
 
 
 #### 重写主动错误上报方法
@@ -125,11 +119,10 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 例如，同一个用户只要页面白屏错误，和其他同类型错误在页面浏览期间超过3次也设置isSendMail=1
 
-<div align="center">
-	<div style="float:left; width: 50%"><img src="./images/10.png" /></div>
-	<div style="float:left; width: 50%"><img src="./images/11.png" /></div>
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half">
+	<img src="./images/10.png" width="45%" />
+	<img src="./images/11.png" width="45%" />
+</figure>
 
 #### sentry系统规则配置
 
@@ -185,31 +178,28 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 ### 2019.07.22 - 视频md5不存在（用户上报）
 根据用户id快速找到了错误信息
 
-<div align="center">
-	<div style="float:left; width: 25%"><img src="./images/15.png" /></div>
-	<div style="float:left; width: 75%"><img src="./images/16.png" /></div>
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half"> 
+	<img src="./images/15.png" width="30%" />
+	<img src="./images/16.png" width="60%" />
+</figure>
 
 此问题发现传参有问题，但前端代码并没有逻辑问题，最后最终到了其他发布入口，发现中台提供的发布功能上md5参数会丢失
 
 ### 2019.07.20 - 营销页推广后下单失败（上线后接口异常）
 
-<div align="center">
-	<div style="float:left; width: 40%"><img src="./images/18.png" /></div>
-	<div style="float:left; width: 60%"><img src="./images/17.png" /></div>
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half"> 
+	<img src="./images/18.png" width="45%" />
+	<img src="./images/17.png" width="45%" />
+</figure>
 
 跟后端配合排查，发现其中一个参数长度过长，超过了数据库存储限制
 
 ### 2019.08.06 - 全用户异常接口提示（代码逻辑不完善）
 
-<div align="center">
-	<div style="float:left; width: 40%"><img src="./images/19.png" /></div>
-	<div style="float:left; width: 60%"><img src="./images/20.png" /></div>
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half"> 
+	<img src="./images/19.png" width="45%" />
+	<img src="./images/20.png" width="45%" />
+</figure>
 
 发现前端同时多次请求，后端接口未加锁造成入库异常，类似的风险代码发现了很多，包括一些代码边界值的判断等等，最终我们整理了一套前端开发风险规范，并且开发了一套`pre-commit`规则来对风险代码进行校验（校验的并不是代码风格，语法等，这里要是有兴趣可以安排相关同学整理分享一下），规避风险代码，减少线上错误。
 
