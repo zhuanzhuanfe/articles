@@ -34,7 +34,7 @@
 侵入项目，虽然前端实际工作中一直以对业务无侵入为研究方向。但在实际的业务中偶尔的侵入业务去做一些处理是很有必要的，给业务带来的收益也是可关的，我们能做的就是尽量少的侵入业务代码，导致污染。以下是我们对项目的改造策略，以`react`为例，vue也是类似方案：
 
 <div>
-	<img src="./images/2.png" width="60%" >
+	<img src="./images/2.png" width="80%" >
 </div>
 
 #### 页面改造
@@ -66,7 +66,7 @@
 快速定位，排错，及评估影响范围
 
 <center>
-	<img src="./images/8.png" width="60%" >
+	<img src="./images/8.png" width="80%" >
 </center>
 
 例如：快速查看错误根据`tags`的分布
@@ -139,12 +139,12 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 #### 小程序监控方案
 <div align="center">
-	<img src="./images/22.png" width="50%" >
+	<img src="./images/22.png" width="80%" >
 </div>
 
 #### 404监控方案
 <div align="center">
-	<img src="./images/23.png" width="50%" >
+	<img src="./images/23.png" width="80%" >
 </div>
 
 
@@ -195,10 +195,8 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 ### 2019.08.06 - 全用户异常接口提示（代码逻辑不完善）
 
-<figure class="half"> 
-	<img src="./images/19.png" width="45%" />
-	<img src="./images/20.png" width="45%" />
-</figure>
+<img src="./images/19.png" width="45%" />
+<img src="./images/20.png" width="45%" />
 
 发现前端同时多次请求，后端接口未加锁造成入库异常，类似的风险代码发现了很多，包括一些代码边界值的判断等等，最终我们整理了一套前端开发风险规范，并且开发了一套`pre-commit`规则来对风险代码进行校验（校验的并不是代码风格，语法等，这里要是有兴趣可以安排相关同学整理分享一下），规避风险代码，减少线上错误。
 
