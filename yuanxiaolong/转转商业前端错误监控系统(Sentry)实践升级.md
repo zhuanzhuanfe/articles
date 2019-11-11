@@ -167,11 +167,10 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 ## 实际案例
 ### 2019.06.18 - ios10系统页面兼容问题（邮件预警）
 
-<div align="center">
-	<img src="./images/13.png" style="float:left" width="40%" >
-	<img src="./images/14.png" style="float:right" width="40%" >
-	<div style="width:100%;height:0;clear:both;"></div>
-</div>
+<figure class="half"> 
+	<img src="./images/13.png" width="40%" />
+	<img src="./images/14.png" width="40%" />
+</figure>
 
 晚上10点上线一个新需求有收到邮件，在ios10里面有问题，迅速评估出了影响范围
 
