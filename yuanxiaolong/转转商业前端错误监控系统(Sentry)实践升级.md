@@ -34,21 +34,19 @@
 侵入项目，虽然前端实际工作中一直以对业务无侵入为研究方向。但在实际的业务中偶尔的侵入业务去做一些处理是很有必要的，给业务带来的收益也是可关的，我们能做的就是尽量少的侵入业务代码，导致污染。以下是我们对项目的改造策略，以`react`为例，vue也是类似方案：
 
 <div align="center">
-	<img src="./images/2.png" width="75%" >
+	<img src="./images/2.png" width="50%" >
 </div>
 
 #### 页面改造
 错误捕获组件：
 
-<div align="center">
-	<img src="./images/3.png" width="75%" >
-</div>
+<img src="./images/3.png" width="50%" >
 
 组件错误捕获 & 页面错误捕获：
 
 <div align="center">
-	<img src="./images/4.png" style="float:left" width="50%" >
-	<img src="./images/5.png" style="float:right" width="50%" >
+	<div style="float:left; width: 50%;"><img src="./images/4.png" /></div>
+	<div style="float:left; width: 50%;"> <img src="./images/5.png" /></div>
 	<div style="width:100%;height:0;clear:both;"></div>
 </div>
 
@@ -61,8 +59,8 @@
 监控接口异常状态，即时获取接口错误信息，辅助后端监控及日志排查。
 
 <div align="center">
-	<img src="./images/7.png" style="float:left" width="50%" >
-	<img src="./images/6.png" style="float:right" width="50%" >
+	<div style="float:left; width: 50%;"><img src="./images/7.png" /></div>
+	<div style="float:left; width: 50%;"><img src="./images/6.png" /></div>
 	<div style="width:100%;height:0;clear:both;"></div>
 </div>
 
@@ -77,19 +75,19 @@
 
 <div align="center">
 	<div style="float:left; width: 50%">
-		<img src="./images/26.png" style="float:left" width="80%" >
-		<img src="./images/27.png" style="float:left" width="80%" >
+		<div style="float:left; width: 80%;"><img src="./images/26.png" width="80%" /></div>
+		<div style="float:left; width: 80%;"><img src="./images/27.png" /></div>
 		<div style="width:100%;height:0;clear:both;"></div>
 	</div>
-	<img src="./images/29.png" style="float:left" width="50%" >
+	<div style="float:left; width: 50%;"><img src="./images/29.png" /></div>
 	<div style="width:100%;height:0;clear:both;"></div>
 </div>
 
 
 #### 重写主动错误上报方法
 
-<div align="center">
-	<img src="./images/9.png" width="75%" >
+<div>
+	<img src="./images/9.png" width="50%" >
 </div>
 
 其中：
@@ -128,15 +126,15 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 例如，同一个用户只要页面白屏错误，和其他同类型错误在页面浏览期间超过3次也设置isSendMail=1
 
 <div align="center">
-	<img src="./images/10.png" style="float:left" width="50%" >
-	<img src="./images/11.png" style="float:right" width="50%" >
+	<div style="float:left; width: 50%"><img src="./images/10.png" /></div>
+	<div style="float:left; width: 50%"><img src="./images/11.png" /></div>
 	<div style="width:100%;height:0;clear:both;"></div>
 </div>
 
 #### sentry系统规则配置
 
 <div align="center">
-	<img src="./images/12.png" width="75%" >
+	<img src="./images/12.png" width="50%" >
 </div>
 
 以上那么做了以后，整体的邮件错误频率能得到很大的降低，集中开发人员的经历去解决我们更关注的错误，实现上报即重点。
@@ -148,12 +146,12 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 #### 小程序监控方案
 <div align="center">
-	<img src="./images/22.png" width="75%" >
+	<img src="./images/22.png" width="50%" >
 </div>
 
 #### 404监控方案
 <div align="center">
-	<img src="./images/23.png" width="75%" >
+	<img src="./images/23.png" width="50%" >
 </div>
 
 
@@ -168,7 +166,7 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 ### 每月线上bug折线图
 <div align="center">
-	<img src="./images/21.png" width="75%" >
+	<img src="./images/21.png" width="50%" >
 </div>
 
 从7月份我们上线了这套策略以后，我们能把线上用户发现错误控制在了平均2个以内，收益明显。
@@ -188,8 +186,8 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 根据用户id快速找到了错误信息
 
 <div align="center">
-	<img src="./images/15.png" style="float:left" width="25%" >
-	<img src="./images/16.png" style="float:right" width="75%" >
+	<div style="float:left; width: 25%"><img src="./images/15.png" /></div>
+	<div style="float:left; width: 75%"><img src="./images/16.png" /></div>
 	<div style="width:100%;height:0;clear:both;"></div>
 </div>
 
@@ -198,8 +196,8 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 ### 2019.07.20 - 营销页推广后下单失败（上线后接口异常）
 
 <div align="center">
-	<img src="./images/18.png" style="float:left" width="40%" >
-	<img src="./images/17.png" style="float:right" width="60%" >
+	<div style="float:left; width: 40%"><img src="./images/18.png" /></div>
+	<div style="float:left; width: 60%"><img src="./images/17.png" /></div>
 	<div style="width:100%;height:0;clear:both;"></div>
 </div>
 
@@ -208,8 +206,8 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 ### 2019.08.06 - 全用户异常接口提示（代码逻辑不完善）
 
 <div align="center">
-	<img src="./images/19.png" style="float:left" width="40%" >
-	<img src="./images/20.png" style="float:right" width="60%" >
+	<div style="float:left; width: 40%"><img src="./images/19.png" /></div>
+	<div style="float:left; width: 60%"><img src="./images/20.png" /></div>
 	<div style="width:100%;height:0;clear:both;"></div>
 </div>
 
