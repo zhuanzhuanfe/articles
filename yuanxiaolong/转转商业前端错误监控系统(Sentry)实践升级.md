@@ -53,7 +53,7 @@
 #### 页面改造
 错误捕获组件：
 
-<img src="./images/3.png" width="50%" >
+<img src="./images/3.png" width="60%" >
 
 组件错误捕获 & 页面错误捕获：
 
