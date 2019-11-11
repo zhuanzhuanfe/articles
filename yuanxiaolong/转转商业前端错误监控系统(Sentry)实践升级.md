@@ -159,7 +159,7 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 ### 每月线上bug折线图
 <div align="center">
-	<img src="./images/21.png" width="50%" >
+	<img src="./images/21.png" width="80%" >
 </div>
 
 从7月份我们上线了这套策略以后，我们能把线上用户发现错误控制在了平均2个以内，收益明显。
