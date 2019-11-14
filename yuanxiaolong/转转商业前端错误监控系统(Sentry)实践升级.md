@@ -10,7 +10,7 @@
 区别于传统的靠用户反馈机制开发人员被动接收排查问题的模式来说。流程更短，体验更佳。
 
 <div align="center">
-	<img src="./images/1.png" height="200" >
+	<img src="./images/1.png" height="250" >
 	<img src="./images/30.png" height="200" >
 </div>
 
