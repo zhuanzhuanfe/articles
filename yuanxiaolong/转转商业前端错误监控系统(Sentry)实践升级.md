@@ -56,7 +56,7 @@
 侵入项目，虽然前端实际工作中一直以对业务无侵入为研究方向。但在实际的业务中偶尔的侵入业务去做一些处理是很有必要的，给业务带来的收益也是可关的，我们能做的就是尽量少的侵入业务代码，导致污染。以下是我们对项目的改造策略：
 
 <div align="center">
-	<img src="./images/2.png" width="80%" >
+	<img src="./images/2.png" height="250" >
 </div>
 
 以`react`为例，我们做了以下处理，vue也是类似方案：
@@ -64,7 +64,7 @@
 #### 页面改造
 * 增加错误捕获组件：
 <div align="center">
-	<img src="./images/3.png" width="60%" >
+	<img src="./images/3.png" height="200" >
 </div>
 
 * 组件错误捕获 & 页面错误捕获：
