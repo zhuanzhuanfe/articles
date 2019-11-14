@@ -99,9 +99,9 @@
 * 更多分析问题需要的信息，辅助快速解决问题；
 * 规整错误列表，查看错误频率，优化代码，服务，及产品逻辑风险；
 
-<center>
+<div align="center">
 	<img src="./images/8.png" height="250" >
-</center>
+</div>
 
 例如：快速查看错误根据`tags`的分布
 
@@ -116,9 +116,9 @@
 
 让上报的错误信息使用更方便，辅助信息更完善。
 
-<center>
+<div align="center">
 	<img src="./images/9.png" height="300" >
-</center>
+</div>
 
 其中：
 
