@@ -1,4 +1,4 @@
-# 转转商业前端错误监控系统(Sentry)实践升级
+# 转转商业前端错误监控系统(Sentry)策略升级
 
 ## 背景
 众所周知，目前前端的错误监控在实际工作中越来越重要，好处如下：
@@ -7,10 +7,11 @@
 * 辅助定位分析错误
 * 先于用户发现错误
 
-区别于传统的靠用户反馈机制开发人员被动接收排查问题的模式来说，问题处理更高效，给用户体验更佳。
+区别于传统的靠用户反馈机制开发人员被动接收排查问题的模式来说。流程更短，体验更佳。
 
 <div align="center">
-	<img src="./images/1.png" width="200" >
+	<img src="./images/1.png" height="200" >
+	<img src="./images/30.png" height="200" >
 </div>
 
 目前，转转的前端错误监控体系都是基于`Sentry`建立的。之前我们也或对比或使用过业内比较成熟的几个监控产品，例如`Badjs`，`FrontJS`，`Fundebug`等。但要么就是用起来繁琐，要么就是不开源，最后我们选择了`Sentry`，目前经过一段时间的使用来看`Sentry`是相对比较成熟且完整的前端错误监控方案了，已经基本能满足我们的项目要求。
@@ -54,7 +55,7 @@
 ### 以攻代守（主动上报）
 侵入项目，虽然前端实际工作中一直以对业务无侵入为研究方向。但在实际的业务中偶尔的侵入业务去做一些处理是很有必要的，给业务带来的收益也是可关的，我们能做的就是尽量少的侵入业务代码，导致污染。以下是我们对项目的改造策略：
 
-<div>
+<div align="center">
 	<img src="./images/2.png" width="80%" >
 </div>
 
@@ -62,15 +63,16 @@
 
 #### 页面改造
 * 增加错误捕获组件：
-
-<img src="./images/3.png" width="60%" >
+<div align="center">
+	<img src="./images/3.png" width="60%" >
+</div>
 
 * 组件错误捕获 & 页面错误捕获：
 
-<figure class="half">
-	<img src="./images/4.png" width="50%" />
-	<img src="./images/5.png" width="40%" />
-</figure>
+<div align="center">
+	<img src="./images/4.png" height="100" />
+	<img src="./images/5.png" height="200" />
+</div>
 
 以上方案不止能有效捕获错误，区分错误级别，还能有效防止子组件错误影响整体页面渲染，导致白屏，简直一举两得。
 
@@ -84,10 +86,10 @@
 
 因为我们有同一请求包`SDK`，所以处理起来异常简单。
 
-<figure class="half">
-	<img src="./images/7.png" width="45%" />
-	<img src="./images/6.png" width="45%" />
-</figure>
+<div align="center">
+	<img src="./images/7.png" height="200" />
+	<img src="./images/6.png" height="100" />
+</div>
 
 ### 多维度标签 & 辅助查错信息 & 自定义错误分组规则
 
@@ -98,25 +100,25 @@
 * 规整错误列表，查看错误频率，优化代码，服务，及产品逻辑风险；
 
 <center>
-	<img src="./images/8.png" width="80%" >
+	<img src="./images/8.png" height="250" >
 </center>
 
 例如：快速查看错误根据`tags`的分布
 
-<figure class="half">
-	<img src="./images/26.png" width="30%" />
-	<img src="./images/27.png" width="30%" />
-	<img src="./images/29.png" width="35%" />
-</figure>
+<div align="center">
+	<img src="./images/26.png" height="80" />
+	<img src="./images/27.png" height="50" />
+	<img src="./images/29.png" height="200" />
+</div>
 
 
 #### 重写错误上报方法
 
 让上报的错误信息使用更方便，辅助信息更完善。
 
-<div>
-	<img src="./images/9.png" width="50%" >
-</div>
+<center>
+	<img src="./images/9.png" height="300" >
+</center>
 
 其中：
 
@@ -133,13 +135,13 @@
 Before: 所有信息混杂，同类型错误无分类，没有进行日期的错误区分，看不到错误变化趋势
 
 <div align="center">
-	<img src="./images/24.png" width="80%" >
+	<img src="./images/24.png" height="300" >
 </div>
 
 After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 <div align="center">
-	<img src="./images/25.png" width="80%" >
+	<img src="./images/25.png" height="300" >
 </div>
 
 
@@ -153,15 +155,15 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 例如，同一个用户只要页面白屏错误，和其他同类型错误在页面浏览期间超过3次也设置`isSendMail=1`
 
-<figure class="half">
-	<img src="./images/10.png" width="45%" />
-	<img src="./images/11.png" width="45%" />
-</figure>
+<div align="center">
+	<img src="./images/10.png" height="60" />
+	<img src="./images/11.png" height="60" />
+</div>
 
 #### sentry系统规则配置
 
 <div align="center">
-	<img src="./images/12.png" width="50%" >
+	<img src="./images/12.png" height="200" >
 </div>
 
 以上那么做了以后，整体的邮件错误频率能得到很大的降低，集中开发人员的经历去解决我们更关注的错误，实现上报即重点。
@@ -173,12 +175,12 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 #### 小程序监控方案
 <div align="center">
-	<img src="./images/22.png" width="80%" >
+	<img src="./images/22.png" height="200" >
 </div>
 
 #### 404监控方案
 <div align="center">
-	<img src="./images/23.png" width="80%" >
+	<img src="./images/23.png" height="200" >
 </div>
 
 
@@ -194,36 +196,40 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 ## 实际案例
 ### 2019.06.18 - ios10系统页面兼容问题（邮件预警）
 
-<figure class="half"> 
-	<img src="./images/13.png" width="40%" />
-	<img src="./images/14.png" width="40%" />
-</figure>
+<div align="center"> 
+	<img src="./images/13.png" height="300" />
+	<img src="./images/14.png" width="150" />
+</div>
 
-晚上10点上线一个新需求有收到邮件，在ios10里面有问题，迅速评估出了影响范围
+晚上10点上线一个新需求有收到邮件，在ios10里面有问题，迅速评估出了影响范围。
 
 ### 2019.07.22 - 视频md5不存在（用户上报）
 根据用户id快速找到了错误信息
 
-<figure class="half"> 
-	<img src="./images/15.png" width="30%" />
-	<img src="./images/16.png" width="60%" />
-</figure>
+<div align="center"> 
+	<img src="./images/15.png" height="220" />
+	<img src="./images/16.png" height="110" />
+</div>
 
-此问题发现传参有问题，但前端代码并没有逻辑问题，最后最终到了其他发布入口，发现中台提供的发布功能上md5参数会丢失
+此问题发现传参有问题，但前端代码并没有逻辑问题，最后最终到了其他发布入口，发现中台提供的发布功能上md5参数会丢失。
 
 ### 2019.07.20 - 营销页推广后下单失败（上线后接口异常）
 
-<figure class="half"> 
-	<img src="./images/18.png" width="45%" />
-	<img src="./images/17.png" width="45%" />
-</figure>
+<div align="center"> 
+	<img src="./images/18.png" height="150" />
+	<img src="./images/17.png" height="50" />
+</div>
 
-跟后端配合排查，发现其中一个参数长度过长，超过了数据库存储限制
+跟后端配合排查，发现其中一个参数长度过长，超过了数据库存储限制。
+
+目前我们已经要求全部需求上线后必须关注`Sentry`报错，以免错误暴露给用户造成不好的影响。
 
 ### 2019.08.06 - 全用户异常接口提示（代码逻辑不完善）
 
-<img src="./images/19.png" width="45%" />
-<img src="./images/20.png" width="45%" />
+<div align="center">
+	<img src="./images/19.png" height="50" />
+	<img src="./images/20.png" height="50" />
+</div>
 
 发现前端同时多次请求，后端接口未加锁造成入库异常，类似的风险代码发现了很多，包括一些代码边界值的判断等等，最终我们整理了一套前端开发风险规范，并且开发了一套`pre-commit`规则来对风险代码进行校验（校验的并不是代码风格，语法等，这里要是有兴趣可以安排相关同学整理分享一下），规避风险代码，减少线上错误。
 
