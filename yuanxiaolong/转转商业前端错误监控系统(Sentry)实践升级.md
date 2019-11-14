@@ -24,7 +24,7 @@
 从7月份我们上线了以下这套策略以后，我们能把线上用户发现错误控制在了平`2`个以内，收益明显。
 
 <div align="center">
-	<img src="./images/21.png" width="80%" >
+	<img src="./images/21.png" height="200" >
 </div>
 
 下面会具体说一下我们的方案策略。
