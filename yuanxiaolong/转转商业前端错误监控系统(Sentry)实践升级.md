@@ -196,7 +196,7 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 ## 实际案例
 ### 2019.06.18 - ios10系统页面兼容问题（邮件预警）
 
-<div align="center"> 
+<div align="center">
 	<img src="./images/13.png" height="300" />
 	<img src="./images/14.png" width="150" />
 </div>
@@ -206,7 +206,7 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 ### 2019.07.22 - 视频md5不存在（用户上报）
 根据用户id快速找到了错误信息
 
-<div align="center"> 
+<div align="center">
 	<img src="./images/15.png" height="220" />
 	<img src="./images/16.png" height="110" />
 </div>
@@ -215,7 +215,7 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 
 ### 2019.07.20 - 营销页推广后下单失败（上线后接口异常）
 
-<div align="center"> 
+<div align="center">
 	<img src="./images/18.png" height="150" />
 	<img src="./images/17.png" height="50" />
 </div>
@@ -238,6 +238,3 @@ After：所有错误信息分组合并，提供更多有效tag帮助快速定位
 每一次排查错误对我们来说都是一次收获，很多问题是可以提前规避的，就算避免不了我们也可以借助`Sentry`去更高效的解决。
 
 最后，拥抱问题，才能让我们更加成长。
-
-
-
