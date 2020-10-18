@@ -1,11 +1,7 @@
 ## (webpack系列一)如何快速把 vue 项目升级到 webpack3
 
-<<<<<<< HEAD
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于`webpack3`升级后，新增了 **Scope Hositing（作用域提升）** 功能，据说是对`js`的性能提升很大。因此，我们做了一个测试对比，就是`webpack3`和`webpack1/2` 的性能对比，如下：
-=======
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于`webpack3`升级后，新增了 **Scope Hositing（作用域提升）** 
 功能，据说是对`js`的性能提升很大。因此，我们做了一个测试对比，就是`webpack3`和`webpack1/2` 的性能对比，如下：
->>>>>>> 3b5ee2c2a8ac1485b9fef003b497bb03c547b3b9
 
 ### 测试目标
 

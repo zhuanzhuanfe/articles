@@ -1,4 +1,4 @@
-# Node.js微服务实践(二) 
+# Node.js微服务实践(二)
 
 ## 基于Seneca 和 PM2构建
 
@@ -11,9 +11,9 @@
 ### 选着Node.js的理由
 
  如今，Node.js 已经成为国际上许多科技公司的首选方案。特别对于在服务器端需要费阻塞特性的场景，Node.js 俨然成了最好的选择。
- 
+
  本章我们主要讲Seneca 和 PM2 作为构建、运行微服务的框架。虽然选择了Seneca和PM2，但并不意味着其他框架不好。
- 
+
  业界还存在一些其他被选方案，例如 restify或Express、Egg.js 可用于构建应用，forever或者nodemon可用于运行应用。而Seneca和PM2我觉得是构建微服务最佳的组合，主要原因如下：
 
 - PM2 在应用部署方面有着异常的强大功能。
@@ -1023,7 +1023,6 @@ http://localhost:3000/api/cal... 得到 {"answer":5}
 ```
 pm2 start app.js
 ```
- 
 - -w --watch：监听目录变化，如变化则自动重启应用
 - --ignore-file：监听目录变化时忽略的文件。如pm2 start rpc_server.js --watch --ignore-watch="rpc_client.js"
 - -n --name：设置应用名字，可用于区分应用
