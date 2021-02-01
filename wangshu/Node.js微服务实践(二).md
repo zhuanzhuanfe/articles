@@ -1023,7 +1023,6 @@ http://localhost:3000/api/cal... 得到 {"answer":5}
 ```
 pm2 start app.js
 ```
-
 - -w --watch：监听目录变化，如变化则自动重启应用
 - --ignore-file：监听目录变化时忽略的文件。如pm2 start rpc_server.js --watch --ignore-watch="rpc_client.js"
 - -n --name：设置应用名字，可用于区分应用

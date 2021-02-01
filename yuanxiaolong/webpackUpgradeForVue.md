@@ -1,6 +1,6 @@
 ## (webpack系列一)如何快速把 vue 项目升级到 webpack3
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于`webpack3`升级后，新增了 **Scope Hositing（作用域提升）**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于`webpack3`升级后，新增了 **Scope Hositing（作用域提升）** 
 功能，据说是对`js`的性能提升很大。因此，我们做了一个测试对比，就是`webpack3`和`webpack1/2` 的性能对比，如下：
 
 ### 测试目标
@@ -56,7 +56,7 @@ new webpack.optimize.ModuleConcatenationPlugin()
 * 把你的 `src` 目录下的业务代码拷贝到新建的 `tow3` 项目中 `src` 路径替换了
 * 把 `config/index.js` 更细成你自己项目的，这里需要注意的是，`webpack3`此文件的配置和`webpack1、2` 都不太一样，所以仔细比对，只修改一样的配置项
 * 在 `build/webpack.prod.conf.js` 配置里文件里的加上如下配置，这是`webpack3`升级的最核心功能(加在这个文件时因为我生产环境不需要)，如果本身打包策略做了优化，那么就需要对造`webpack3`的最新语法进行修改迁移了
-
+ 
 ````
 	plugins: [
 		new webpack.optimize.ModuleConcatenationPlugin()
@@ -78,7 +78,7 @@ new webpack.optimize.ModuleConcatenationPlugin()
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 `build/webpack.dev.conf.js` 里有自带错误调试的插件
 
 ````javascript
-	new webpack.HotModuleReplacementPlugin(),
+	new webpack.HotModuleReplacementPlugin(),   
 	new FriendlyErrorsPlugin()
 ````
 
@@ -87,7 +87,7 @@ new webpack.optimize.ModuleConcatenationPlugin()
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们只需要修改一行配置：
 
 ````javascript
-	new webpack.HotModuleReplacementPlugin(),
+	new webpack.HotModuleReplacementPlugin(), 
 	new FriendlyErrorsPlugin({
       onErrors: function (severity, errors) {
         console.log(errors);
