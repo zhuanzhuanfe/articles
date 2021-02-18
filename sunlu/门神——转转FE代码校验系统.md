@@ -6,7 +6,7 @@
 
 而转转FE团队，也在农历新年前，正式上线了门神系统——一个在部署环节可以通过静态扫描，发现并拦截含有不安全代码的项目上线的系统，保护线上项目稳定运行。
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613574572669-b8fe7a9e-52ee-4039-94fa-1c989d8ec74a.png#align=left&display=inline&height=614&margin=%5Bobject%20Object%5D&name=image.png&originHeight=614&originWidth=1091&size=1739215&status=done&style=none&width=1091)
+![image.png](https://pic3.zhuanstatic.com/zhuanzh/42b9ddcc-3693-4e51-8896-5b6651582796.png)
 
 ## 背景
 
@@ -53,7 +53,7 @@
 
 我们需要关心的，是这其中创建分支、构建代码、正式上线三步操作。
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613589462157-a8c4e25d-69f5-4036-ad53-815558fd9461.png#align=left&display=inline&height=786&margin=%5Bobject%20Object%5D&name=image.png&originHeight=786&originWidth=518&size=42812&status=done&style=none&width=518)
+![image.png](https://pic5.zhuanstatic.com/zhuanzh/c810e0a3-40d8-4764-a9d4-879fc48cd3f5.png)
 
 如图所示，只需要在Beetle系统触发上述三个钩子：
 
@@ -65,7 +65,7 @@
 
 如下图所示，高亮区域的“静态扫描”卡片，还显示最后一次构建的结果，若 `error > 0` ，则会触发系统的拦截，此时可以点击“扫描结果”，前往门神系统的后台界面，查看问题出在哪。
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613634015807-d45bc945-a4ed-4f42-a327-a38a50a4cc5c.png#align=left&display=inline&height=643&margin=%5Bobject%20Object%5D&name=image.png&originHeight=643&originWidth=978&size=70849&status=done&style=none&width=978)
+![image.png](https://pic2.zhuanstatic.com/zhuanzh/c52b46d7-46b5-4090-9324-d6f8d943c851.png)
 
 ### 建设可视化平台
 
@@ -81,7 +81,7 @@
 
 我们从Beetle的拦截页面跳转到门神系统的后台界面，首先会看到以下信息：
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613634967260-d875c22b-6883-479a-9df9-50d0e8f05d36.png#align=left&display=inline&height=525&margin=%5Bobject%20Object%5D&name=image.png&originHeight=525&originWidth=761&size=50839&status=done&style=none&width=761)
+![image.png](https://pic6.zhuanstatic.com/zhuanzh/cebc5db2-cb99-4f5c-93d5-1530a241cdb3.png)
 
 这个页面详细显示了在这次扫描中，哪个文件的哪一行代码，触发了哪一个规则。如果这个规则在项目中配置为 `error` 级别，则会统计到“错误”类型中，触发上线前的拦截。比如这个截图中的错误，就是触发了 `zz-check-plugin-404` 插件的“未使用 `setPicSize` 处理图片链接，可能出现404问题”的规则。这里先提一句，系统采用插件机制，通过遍历插件完成扫描，不同插件实现不同的拦截需求，这会在后面的章节介绍。
 
@@ -89,9 +89,9 @@
 
 下面的图片展示了一个转转 `eslint` 规范和一个代码重复度提示的例子。
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613636081834-c215a361-8122-4b30-ab06-b4390e20f491.png#align=left&display=inline&height=767&margin=%5Bobject%20Object%5D&name=image.png&originHeight=767&originWidth=761&size=71788&status=done&style=none&width=761)
+![image.png](https://pic2.zhuanstatic.com/zhuanzh/aa8fe33a-ed91-4f5a-80ce-16a156fa4704.png)
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613636309812-67b1b7fe-142e-45d2-b559-45d0a0af2caa.png#align=left&display=inline&height=852&margin=%5Bobject%20Object%5D&name=image.png&originHeight=852&originWidth=761&size=106077&status=done&style=none&width=761)
+![image.png](https://pic4.zhuanstatic.com/zhuanzh/173f5083-5942-4bb2-8f63-ee178e7c4bbb.png)
 
 最后需要说明的是，这里我们做了一个优化——删减了部分日志。因为在实际的项目中，比较大、比较旧的项目或者第一次接入的项目、描结果的日志数量可能会达到成千上万条，而检测代码重复度中也会粘贴大量的代码拷贝。这些数据其实没有太大的保存意义，买硬盘还是很贵的。所以如果要查看完整的日志，还请在本地手动执行扫描并修改~
 
@@ -119,7 +119,7 @@
 
 这样，系统通过遍历执行插件完成扫描，每个插件各司其职，达到千人千面的使用效果。如下图，系统默认提供了几个基础插件。
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613641259239-955ccdc2-ccc8-45f7-93d5-3484cc56e4c9.png#align=left&display=inline&height=618&margin=%5Bobject%20Object%5D&name=image.png&originHeight=618&originWidth=889&size=66514&status=done&style=none&width=889)
+![image.png](https://pic6.zhuanstatic.com/zhuanzh/075c8c36-a5df-4906-8c94-e0b8be3faba3.png)
 
 ### 错误等级划分
 
@@ -149,7 +149,7 @@
 
 下图展示了项目中的插件配置界面。
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613652440707-a010b6ef-870b-483e-a5ac-1c1622413bb3.png#align=left&display=inline&height=315&margin=%5Bobject%20Object%5D&name=image.png&originHeight=315&originWidth=869&size=31252&status=done&style=none&width=869)
+![image.png](https://pic2.zhuanstatic.com/zhuanzh/bbcf4dbe-4c03-46ca-83f7-5941540d2df7.png)
 
 ### 总结
 
@@ -163,7 +163,7 @@
 
 `zzCheckService` 将扫描工作分为5个阶段：
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613656892402-f8f3ae18-70f1-4c0a-aa12-2dc6c24528b5.png#align=left&display=inline&height=210&margin=%5Bobject%20Object%5D&name=image.png&originHeight=210&originWidth=974&size=26371&status=done&style=none&width=974)
+![image.png](https://pic3.zhuanstatic.com/zhuanzh/e98f66a9-ad7d-4100-97bf-e940f7836e9b.png)
 
 除了第一步的初始化和最后一步的输出结果外，核心工作是中间的3步。
 
@@ -174,7 +174,7 @@
 - 从 `npm` 源检查每一个插件的最新版本，与本地插件版本对比
 - 下载新插件、更新旧插件
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613658762121-6a7c6c2f-6737-40f9-8dd6-4e137982bd43.png#align=left&display=inline&height=284&margin=%5Bobject%20Object%5D&name=image.png&originHeight=284&originWidth=811&size=28689&status=done&style=none&width=811)
+![image.png](https://pic1.zhuanstatic.com/zhuanzh/a7fd5208-b62a-47b7-9d45-3a8e0372ea00.png)
 
 在本地调试时，我们需要
 
@@ -183,7 +183,7 @@
 - 从 `npm` 源检查每一个插件的最新版本，与本地插件版本对比
 - 下载新插件、更新旧插件
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/468679/1613658905595-f013264c-5f92-4c36-a4da-697b383bcf82.png#align=left&display=inline&height=284&margin=%5Bobject%20Object%5D&name=image.png&originHeight=284&originWidth=706&size=23501&status=done&style=none&width=706)
+![image.png](https://pic6.zhuanstatic.com/zhuanzh/b64a01f8-d367-42bb-b88b-0de4fb1e3e96.png)
 
 最后一步安装插件时，有一个细节值得注意——这里的 `npm` 包管理应该是独立管理的，不能和当前运行环境的 `node_modules` 文件夹混合，我们可以将插件安装到指定目录，通过 `--prefix` 修饰符可以实现。
 
